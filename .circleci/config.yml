@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test:
+  test-and-build:
     executor:
       name: node/default
       tag: 'lts'
@@ -12,6 +12,9 @@ jobs:
       - run:
           command: yarn test
           name: Run tests
+      - run:
+          command: yarn build
+          name: Build
 
 orbs:
   node: circleci/node@4.0.0
@@ -19,4 +22,4 @@ orbs:
 workflows:
   node-tests:
     jobs:
-      - test
+      - test-and-build
