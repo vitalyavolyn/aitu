@@ -1,6 +1,12 @@
-import { FileMedia } from '.'
-import { Gif } from '../../interfaces'
+import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
+
+export interface Gif extends BaseFileMedia {
+  type: 'Gif'
+  width: number
+  height: number
+  duration: number
+}
 
 export class GifMedia extends FileMedia<Gif, 'Gif'> {
   public get width (): number {

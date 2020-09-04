@@ -1,7 +1,6 @@
 import { inspectable } from 'inspectable'
 
 import { Aitu } from '../../aitu'
-import { MediaType, MediaPayload } from '../../interfaces'
 import {
   ImageMedia,
   VideoMedia,
@@ -9,9 +8,23 @@ import {
   AudioMedia,
   ContactMedia,
   GifMedia,
-  MusicMedia
+  MusicMedia,
+
+  Image,
+  Video,
+  Document,
+  Audio,
+  RegisteredContact, UnregisteredContact,
+  Gif,
+  Music
 } from '.'
 import { Constructor } from '../../types'
+
+export type MediaPayload =
+Image | Video | Document | Audio |
+RegisteredContact | UnregisteredContact | Gif | Music
+
+export type MediaType = MediaPayload['type']
 
 export type MediaOptions<
   P = {},

@@ -1,7 +1,21 @@
 import fetch, { Response } from 'node-fetch'
 import { Media } from '.'
-import { BaseFileMedia, InputMedia } from '../../interfaces'
 import { pickProperties } from '../../utils'
+
+export interface BaseFileMedia {
+  type: 'Image' | 'Video' | 'Audio' | 'Document' | 'Gif' | 'Music'
+  fileId: string
+  mimeType: string
+  name: string
+  size: number
+}
+
+// TODO: can bot upload gifs/send music?
+export interface InputMedia {
+  fileId: string
+  name: string
+  mediaType: 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT'
+}
 
 export class FileMedia<
   P extends BaseFileMedia, Type extends BaseFileMedia['type'] = BaseFileMedia['type']

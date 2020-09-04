@@ -1,7 +1,14 @@
-import { NewChannelSubscriberUpdate, Peer, ChannelPeer } from '../interfaces'
+import { Update, Peer, ChannelPeer } from '../interfaces'
 import { Context } from './context'
 import { SendMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+export interface NewChannelSubscriberUpdate extends Update {
+  /** Channel UUID */
+  channelId: string
+  type: 'NewChannelSubscriber'
+  peer: Peer
+}
 
 export type NewChannelSubscriberContextPayload = NewChannelSubscriberUpdate
 export type NewChannelSubscriberContextType = NewChannelSubscriberContextPayload['type']

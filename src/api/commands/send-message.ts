@@ -1,5 +1,5 @@
-import { Peer, InputMedia, InlineCommand, UiState } from '../../interfaces'
-import { KeyboardBuilder, Media } from '../../structures'
+import { Peer, UiState } from '../../interfaces'
+import { KeyboardBuilder, Media, InputMedia, InlineCommand } from '../../structures'
 
 export interface SendMessageParams {
   /**

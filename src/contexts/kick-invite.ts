@@ -1,15 +1,34 @@
-import {
-  InvitedToGroupUpdate,
-  KickedFromGroupUpdate,
-  InvitedToChannelUpdate,
-  KickedFromChannelUpdate,
-  Peer,
-  ChannelPeer
-} from '../interfaces'
+import { Update, Peer, ChannelPeer } from '../interfaces'
 import { Context } from './context'
 import { PeerType } from '../types'
 import { SendMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+interface GroupStateUpdate extends Update {
+  /** Group UUID */
+  groupId: string
+}
+
+interface ChannelStateUpdate extends Update {
+  /** Channel UUID */
+  channelId: string
+}
+
+export interface InvitedToGroupUpdate extends GroupStateUpdate {
+  type: 'InvitedToGroup'
+}
+
+export interface KickedFromGroupUpdate extends GroupStateUpdate {
+  type: 'KickedFromGroup'
+}
+
+export interface InvitedToChannelUpdate extends ChannelStateUpdate {
+  type: 'InvitedToChannel'
+}
+
+export interface KickedFromChannelUpdate extends ChannelStateUpdate {
+  type: 'KickedFromChannel'
+}
 
 export type KickInviteContextPayload =
 InvitedToGroupUpdate |

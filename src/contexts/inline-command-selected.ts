@@ -1,8 +1,17 @@
-import { InlineCommandSelectedUpdate, Peer } from '../interfaces'
+import { Update, Peer } from '../interfaces'
 import { Context } from './context'
 import { SendMessageParams, EditMessageParams } from '../api'
 import { PeerType } from '../types'
 import { pickProperties } from '../utils'
+
+export interface InlineCommandSelectedUpdate extends Update {
+  type: 'InlineCommandSelected'
+  dialog: Peer
+  sender: Peer
+  metadata: string
+  content: string
+  messageId: string
+}
 
 export type InlineCommandSelectedContextPayload = InlineCommandSelectedUpdate
 export type InlineCommandSelectedContextType = InlineCommandSelectedContextPayload['type']

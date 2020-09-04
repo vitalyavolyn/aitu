@@ -1,12 +1,21 @@
 import { Context } from './context'
-import {
-  ChannelAdminAddedUpdate,
-  ChannelAdminDeletedUpdate,
-  Peer,
-  ChannelPeer
-} from '../interfaces'
+import { Update, Peer, ChannelPeer } from '../interfaces'
 import { SendMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+interface ChannelAdminUpdate extends Update {
+  /** Channel UUID */
+  channelId: string
+  admin: Peer
+}
+
+export interface ChannelAdminDeletedUpdate extends ChannelAdminUpdate {
+  type: 'ChannelAdminDeleted'
+}
+
+export interface ChannelAdminAddedUpdate extends ChannelAdminUpdate {
+  type: 'ChannelAdminAdded'
+}
 
 export type ChannelAdminContextPayload = ChannelAdminAddedUpdate | ChannelAdminDeletedUpdate
 export type ChannelAdminContextType = ChannelAdminContextPayload['type']

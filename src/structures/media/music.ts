@@ -1,6 +1,10 @@
-import { FileMedia } from '.'
-import { Music } from '../../interfaces'
+import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
+
+export interface Music extends BaseFileMedia {
+  type: 'Music'
+  duration: number
+}
 
 export class MusicMedia extends FileMedia<Music, 'Music'> {
   public get duration (): number {

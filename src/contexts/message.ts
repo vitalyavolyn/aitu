@@ -1,13 +1,6 @@
 import { Context, ContextOptions } from './context'
 import { SendMessageParams } from '../api'
-import {
-  MessageUpdate,
-  Peer,
-  MessageEditedUpdate,
-  MediaType,
-  RegisteredContact,
-  UnregisteredContact
-} from '../interfaces'
+import { Peer, Update } from '../interfaces'
 import { PeerType, MessageForwardMetadata } from '../types'
 import {
   Media,
@@ -15,9 +8,47 @@ import {
   VideoMedia,
   DocumentMedia,
   AudioMedia,
-  ContactMedia
+  ContactMedia,
+
+  MediaType,
+  MediaPayload,
+  RegisteredContact,
+  UnregisteredContact
 } from '../structures'
 import { pickProperties } from '../utils'
+
+export interface MessageUpdate extends Update {
+  type: 'Message'
+  messageId: string
+  sentAt: string
+
+  author: Peer
+  dialog: Peer
+
+  content: string
+
+  forwardMetadata?: {
+    sender: Peer
+  }
+
+  media?: MediaPayload[]
+
+  likeCount?: number
+  repostCount?: number
+  viewCount?: number
+
+  channelPostAuthor?: Peer
+
+  replyToMessageId?: string
+}
+
+export interface MessageEditedUpdate extends Update {
+  type: 'MessageEdited'
+  messageId: string
+  author: Peer
+  dialog: Peer
+  content: string
+}
 
 export type MessageContextPayload = MessageUpdate | MessageEditedUpdate
 export type MessageContextType = MessageContextPayload['type']

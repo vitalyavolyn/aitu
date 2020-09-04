@@ -1,10 +1,35 @@
 import { KeyboardBuilder } from '.'
 import { AllowArray } from '../../types'
-import { InlineCommand, QuickButtonCommand, ReplyCommand } from '../../interfaces'
 
 export interface ProxyButton {
   kind: 'inlineCommand' | 'quickButtonCommand' | 'replyCommand'
   options: InlineCommand | QuickButtonCommand | ReplyCommand
+}
+
+export interface InlineCommand {
+  /** Button caption. Max length - 32, recommended - 20 */
+  caption: string
+  /** JSON or any string to be returned in InlineCommandSelected update */
+  metadata: string
+}
+
+export interface QuickButtonCommand {
+  /** Button caption. Max length - 32, recommended - 20 */
+  caption: string
+  /**
+   * JSON or any string to be returned to a service as a parameter in
+   * update QuickButtonSelected for processing and/or data used by client
+   * to perform specific action
+   *
+   * More info: https://btsdigital.github.io/bot-api-contract/quickbuttoncommand.html
+   */
+  metadata: string
+  action: 'QUICK_REQUEST' | 'QUICK_FORM_ACTION'
+}
+
+export interface ReplyCommand {
+  /** Button caption. Max length - 32, recommended - 20 */
+  caption: string
 }
 
 export class Keyboard {

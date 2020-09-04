@@ -1,12 +1,29 @@
-import { Media } from '.'
-import {
-  ContactMediaPayload,
-  ContactMediaType,
-  RegisteredContact,
-  UnregisteredContact,
-  Avatar,
-  User
-} from '../../interfaces'
+import { Media, Image } from '.'
+
+export interface RegisteredContact {
+  type: 'RegisteredContact'
+  user: User
+}
+
+export interface UnregisteredContact {
+  type: 'UnregisteredContact'
+  firstName?: string
+  lastName?: string
+  phoneNumber?: string
+}
+
+export interface User extends UnregisteredContact {
+  userName: string
+  avatar: Avatar
+}
+
+export interface Avatar {
+  full: Image
+  small: Image
+}
+
+export type ContactMediaType = ContactMediaPayload['type']
+export type ContactMediaPayload = RegisteredContact | UnregisteredContact
 
 export class ContactMedia<
   P extends ContactMediaPayload, Type extends ContactMediaType = ContactMediaType

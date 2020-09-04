@@ -1,6 +1,11 @@
-import { FileMedia } from '.'
-import { Image } from '../../interfaces'
+import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
+
+export interface Image extends BaseFileMedia {
+  type: 'Image'
+  width: number
+  height: number
+}
 
 export class ImageMedia extends FileMedia<Image, 'Image'> {
   public get width (): number {

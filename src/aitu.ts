@@ -121,7 +121,7 @@ export class Aitu {
       const abortController = new AbortController()
       const timeout = setTimeout(() => abortController.abort(), apiTimeout)
 
-      let response : Response | undefined
+      let response: Response
 
       try {
         response = await fetch(url, {

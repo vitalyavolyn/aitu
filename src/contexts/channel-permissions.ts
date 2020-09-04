@@ -1,13 +1,19 @@
 import { Context } from './context'
-import {
-  ChannelPermissionsGrantedUpdate,
-  ChannelPermissionsRevokedUpdate,
-  Peer,
-  ChannelPeer
-} from '../interfaces'
+import { Update, Peer, ChannelPeer } from '../interfaces'
 import { ChannelPermission } from '../types'
 import { SendMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+export interface ChannelPermissionsGrantedUpdate extends Update {
+  type: 'ChannelPermissionsGranted'
+  channel: Peer & { name: string } // TODO: replace with ChannelPeer?
+  permissions: ChannelPermission[]
+}
+
+export interface ChannelPermissionsRevokedUpdate extends Update {
+  type: 'ChannelPermissionsRevoked'
+  channelId: string
+}
 
 export type ChannelPermissionsContextPayload =
 ChannelPermissionsGrantedUpdate |

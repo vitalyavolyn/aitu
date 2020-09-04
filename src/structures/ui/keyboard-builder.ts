@@ -1,4 +1,4 @@
-import { InlineCommand, QuickButtonCommand, ReplyCommand } from '../../interfaces'
+import { InlineCommand, QuickButtonCommand, ReplyCommand } from '.'
 
 export type KeyboardRow = (InlineCommand | QuickButtonCommand | ReplyCommand)[]
 

@@ -45,6 +45,7 @@ module.exports = {
       'ts-ignore': true,
       'ts-expect-error': false
     }],
+    '@typescript-eslint/type-annotation-spacing': ['error'],
 
     'sort-class-members/sort-class-members': ['error', {
       order: [

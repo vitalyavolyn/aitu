@@ -1,8 +1,15 @@
-import { QuickButtonSelectedUpdate, Peer } from '../interfaces'
+import { Update, Peer } from '../interfaces'
 import { Context } from './context'
 import { SendMessageParams } from '../api'
 import { PeerType } from '../types'
 import { pickProperties } from '../utils'
+
+export interface QuickButtonSelectedUpdate extends Update {
+  type: 'QuickButtonSelected'
+  dialog: Peer
+  sender: Peer
+  metadata: string
+}
 
 export type QuickButtonSelectedContextPayload = QuickButtonSelectedUpdate
 export type QuickButtonSelectedContextType = QuickButtonSelectedContextPayload['type']

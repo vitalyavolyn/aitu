@@ -1,6 +1,12 @@
-import { FileMedia } from '.'
-import { Video } from '../../interfaces'
+import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
+
+export interface Video extends BaseFileMedia {
+  type: 'Video'
+  width: number
+  height: number
+  duration: number
+}
 
 export class VideoMedia extends FileMedia<Video, 'Video'> {
   public get width (): number {

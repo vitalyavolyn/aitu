@@ -1,8 +1,15 @@
-import { MessageIdAssignedUpdate, Peer } from '../interfaces'
+import { Update, Peer } from '../interfaces'
 import { Context } from './context'
 import { PeerType } from '../types'
 import { SendMessageParams, EditMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+export interface MessageIdAssignedUpdate extends Update {
+  type: 'MessageIdAssigned'
+  id: string
+  localId: string
+  dialog: Peer
+}
 
 export type MessageIdAssignedContextPayload = MessageIdAssignedUpdate
 export type MessageIdAssignedContextType = MessageIdAssignedContextPayload['type']
