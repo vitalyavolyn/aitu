@@ -62,9 +62,6 @@ export class Aitu {
         'content-type': 'application/json'
       }
 
-      const abortController = new AbortController()
-      const timeout = setTimeout(() => abortController.abort(), apiTimeout)
-
       const methodUrls: Record<string, string> = {
         getMe: '/getMe',
         getChannelInfo: '/channels/{channelId}',
@@ -117,36 +114,38 @@ export class Aitu {
           ? JSON.stringify(params)
           : undefined)
 
+      debug(`[${method}] --> ${httpMethod} ${url}`)
+      if (body) debug(`[${method}] Params: ${body}`)
+
+      // request timeout
+      const abortController = new AbortController()
+      const timeout = setTimeout(() => abortController.abort(), apiTimeout)
+
+      let response : Response | undefined
+
       try {
-        debug(`[${method}] --> ${httpMethod} ${url}`)
-        if (body) debug(`[${method}] Params: ${body}`)
-
-        let response : Response | undefined
-
-        try {
-          response = await fetch(url, {
-            method: httpMethod,
-            signal: abortController.signal,
-            agent,
-            body,
-            headers
-          })
-        } catch (error) {
-          debug(error)
-          throw error
-        }
-
-        const json = await response!.json()
-
-        debug(`[${method}] Response:`, json)
-
-        if (!json.error) return json
-
-        const { status, message } = json.error
-        throw new ApiError({ status, message })
+        response = await fetch(url, {
+          method: httpMethod,
+          signal: abortController.signal,
+          agent,
+          body,
+          headers
+        })
+      } catch (error) {
+        debug(error)
+        throw error
       } finally {
         clearTimeout(timeout)
       }
+
+      const json = await response!.json()
+
+      debug(`[${method}] Response:`, json)
+
+      if (!json.error) return json
+
+      const { status, message } = json.error
+      throw new ApiError({ status, message })
     }
   })
 

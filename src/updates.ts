@@ -1,7 +1,7 @@
 import createDebug from 'debug'
 import fetch from 'node-fetch'
 import AbortController from 'abort-controller'
-import { Middleware, compose, noopNext, Composer } from 'middleware-io'
+import { Middleware, compose, noopNext, Composer, MiddlewareReturn } from 'middleware-io'
 import { inspectable } from 'inspectable'
 
 import { Aitu } from './aitu'
@@ -96,7 +96,7 @@ export class Updates {
 
   private retries = 0
 
-  private composer = Composer.builder<Context>()
+  public composer = Composer.builder<Context>()
     .caught((context, error) => {
       debug('composer error', error)
     })
@@ -178,7 +178,7 @@ export class Updates {
       throw new TypeError('Handler must be a function')
     }
 
-    return this.use((context, next): unknown => (
+    return this.use((context, next): MiddlewareReturn => (
       context.is(events)
         ? handler(context, next)
         : next()
@@ -285,7 +285,7 @@ export class Updates {
     this.dispatchMiddleware(context)
   }
 
-  public dispatchMiddleware (context: Context): unknown {
+  public dispatchMiddleware (context: Context): MiddlewareReturn {
     return this.composed(context, noopNext)
   }
 
@@ -295,7 +295,6 @@ export class Updates {
 }
 
 inspectable(Updates, {
-  // @ts-expect-error
   serialize: ({ isStarted, composer }) => ({
     isStarted,
     composer
