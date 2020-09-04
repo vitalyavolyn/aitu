@@ -256,6 +256,7 @@ export class Updates {
     }
 
     const { updates } = updateResponse
+    this.retries = 0
 
     if (updates.length === 0) return
 
