@@ -7,7 +7,7 @@ export interface SendContainerMessageParams {
    */
   localId?: string
   recipient: Peer
-  content: any // TODO
+  content: string // TODO: add builder
 }
 
 export type SendContainerMessage = (params: SendContainerMessageParams) => Promise<{}>

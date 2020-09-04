@@ -7,7 +7,7 @@ export interface EditContainerMessageParams {
    */
   localId?: string
   recipient: Peer
-  content: any // TODO
+  content: string // TODO: add builder
 }
 
 export type EditContainerMessage = (params: EditContainerMessageParams) => Promise<{}>
