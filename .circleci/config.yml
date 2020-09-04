@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: 'lts'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn test
+          name: Run tests
+
+orbs:
+  node: circleci/node@4.0.0
+
+workflows:
+  node-tests:
+    jobs:
+      - test
