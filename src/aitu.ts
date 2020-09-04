@@ -1,0 +1,170 @@
+import { globalAgent } from 'https'
+import AbortController from 'abort-controller'
+import createDebug from 'debug'
+import fetch, { Response } from 'node-fetch'
+import { inspectable } from 'inspectable'
+
+import { AituOptions, ApiObject } from './interfaces'
+import { Updates } from './updates'
+import { ApiMethod } from './types'
+import { ApiRequestParams } from './api/ApiRequestParams'
+import { ApiError } from './errors'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { name, version, repository } from '../package.json'
+
+const defaultOptions: Partial<AituOptions> = {
+  agent: globalAgent,
+  apiBaseUrl: 'https://messapi.btsdapps.net/bot/v1',
+  apiTimeout: 30000,
+  apiHeaders: {
+    // TODO: add github link and version info
+    'User-Agent': `${name}/${version} (+${repository.url})`
+  },
+  pollingTimeout: 40000,
+  pollingRetryLimit: 3
+}
+
+const debug = createDebug('aitu:api')
+
+export class Aitu {
+  public options: AituOptions
+
+  public updates = new Updates(this)
+
+  /**
+   * Call Aitu API
+   *
+   * @example
+   * aitu.api.SendMessage({ content: 'text', recipient: { type: 'USER', id: 'uuid' } })
+   * // same as
+   * aitu.api('SendMessage', { content: 'text', recipient: { type: 'USER', id: 'uuid' } })
+   */
+  // expect-error is here because proxy target is not an ApiObject, but it doesn't matter anyway
+  // @ts-expect-error
+  public readonly api = new Proxy<ApiObject>(() => null, {
+    // redirect api.method(params) to api(method, params)
+    get: (_target, method: ApiMethod) => <T extends ApiMethod>(
+      params: ApiRequestParams<T>
+    ) => {
+      return this.api(method, params)
+    },
+
+    // this function is executed when aitu.api() is called
+    apply: async <T extends ApiMethod>(
+      _target: ApiObject, _this: Aitu, [method, params]: [T, ApiRequestParams<T>]
+    ) => {
+      const { apiBaseUrl, apiHeaders, apiTimeout, agent, token } = this.options
+
+      const headers = {
+        ...apiHeaders,
+        'x-bot-token': token,
+        'content-type': 'application/json'
+      }
+
+      const abortController = new AbortController()
+      const timeout = setTimeout(() => abortController.abort(), apiTimeout)
+
+      const methodUrls: Record<string, string> = {
+        getMe: '/getMe',
+        getChannelInfo: '/channels/{channelId}',
+        getChannelAdmins: '/channels/{channelId}/admins',
+        getWebhookInfo: '/webhook',
+        setWebhook: '/webhook',
+        deleteWebhook: '/webhook'
+      }
+
+      const methodTypes: Record<string, string> = {
+        setWebhook: 'POST',
+        deleteWebhook: 'DELETE'
+      }
+
+      // TODO: maybe have an array of commands?
+      const isCommand = method[0].toUpperCase() === method[0]
+
+      const httpMethod = isCommand
+        ? 'POST'
+        : methodTypes[method] ?? 'GET'
+
+      let url = apiBaseUrl + (methodUrls[method] ?? '/updates')
+
+      if (httpMethod === 'GET') {
+        for (const param in params) {
+          if (url.includes(`{${param}}`)) {
+            url = url.replace(`{${param}}`, String(params[param]))
+          } else {
+            // FIXME: cringe
+            const urlObj = new URL(url)
+            urlObj.searchParams.append(param, String(params[param]))
+            url = url.replace(/\?.*$/, '') + urlObj.search
+          }
+        }
+      }
+
+      const emptyRequiredParams = url.match(/{([a-z]+)}/i)
+      if (emptyRequiredParams) {
+        throw new TypeError(`Required parameter "${emptyRequiredParams[1]}" is not present`)
+      }
+
+      const body = isCommand
+        ? JSON.stringify({
+          commands: [{
+            type: method,
+            ...(params ?? {})
+          }]
+        })
+        : httpMethod === 'POST'
+          ? JSON.stringify(params)
+          : undefined
+
+      try {
+        debug(`[${method}] --> ${httpMethod} ${url}`)
+        if (body) debug(`[${method}] Params: ${body}`)
+
+        let response : Response | undefined
+
+        try {
+          response = await fetch(url, {
+            method: httpMethod,
+            signal: abortController.signal,
+            agent,
+            body,
+            headers
+          })
+        } catch (e) {
+          debug(e)
+          throw e
+        }
+
+        const json = await response!.json()
+
+        debug(`[${method}] Response:`, json)
+
+        if (!json.error) return json
+
+        const { status, message } = json.error
+        throw new ApiError({ status, message })
+      } finally {
+        clearTimeout(timeout)
+      }
+    }
+  })
+
+  public constructor (options: AituOptions) {
+    this.options = {
+      ...defaultOptions,
+      ...options
+    }
+  }
+
+  public setOptions (options: Partial<AituOptions>): this {
+    Object.assign(this.options, options)
+
+    return this
+  }
+}
+
+inspectable(Aitu, {
+  serialize: ({ api, updates }) => ({ api, updates })
+})

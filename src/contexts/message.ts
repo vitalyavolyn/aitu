@@ -1,0 +1,177 @@
+import { Context, ContextOptions } from './context'
+import { SendMessageParams } from '../api'
+import {
+  MessageUpdate,
+  Peer,
+  MessageEditedUpdate,
+  MediaType,
+  RegisteredContact,
+  UnregisteredContact
+} from '../interfaces'
+import { PeerType, MessageForwardMetadata } from '../types'
+import {
+  Media,
+  ImageMedia,
+  VideoMedia,
+  DocumentMedia,
+  AudioMedia,
+  ContactMedia
+} from '../structures'
+import { pickProperties } from '../utils'
+
+export type MessageContextPayload = MessageUpdate | MessageEditedUpdate
+export type MessageContextType = MessageContextPayload['type']
+
+export class MessageContext extends Context<MessageContextPayload, MessageContextType> {
+  public media: Media[]
+
+  public constructor (options: ContextOptions<MessageContextPayload, MessageContextType>) {
+    super(options)
+
+    this.media = 'media' in this.payload
+      ? this.payload.media!.map(e => Media.fromObject(e, this.aitu))
+      : []
+  }
+
+  public get id (): string {
+    return this.payload.messageId
+  }
+
+  /** Alias for context.content */
+  public get text (): string {
+    return this.content
+  }
+
+  public get sender (): Peer {
+    return this.payload.author
+  }
+
+  public get chat (): Peer {
+    return this.payload.dialog
+  }
+
+  public get chatType (): PeerType {
+    return this.chat.type
+  }
+
+  public get isPM (): boolean {
+    return this.chatType === 'USER'
+  }
+
+  public get isGroup (): boolean {
+    return this.chatType === 'GROUP'
+  }
+
+  public get isChannel (): boolean {
+    return this.chatType === 'CHANNEL'
+  }
+
+  public get sentAt (): Date | undefined {
+    return 'sentAt' in this.payload ? new Date(this.payload.sentAt) : undefined
+  }
+
+  public get content (): string {
+    return this.payload.content
+  }
+
+  public get hasText (): boolean {
+    return this.content.length > 0
+  }
+
+  public get forwardMetadata (): MessageForwardMetadata | undefined {
+    return 'forwardMetadata' in this.payload ? this.payload.forwardMetadata : undefined
+  }
+
+  public get isForward (): boolean {
+    return this.forwardMetadata !== undefined
+  }
+
+  public get isCommand (): boolean {
+    return this.text.startsWith('/')
+  }
+
+  public get replyMessageId (): string | undefined {
+    return 'replyToMessageId' in this.payload ? this.payload.replyToMessageId : undefined
+  }
+
+  public get channelPostAuthor (): Peer | undefined {
+    return 'channelPostAuthor' in this.payload ? this.payload.channelPostAuthor : undefined
+  }
+
+  // TODO: add more getters (likeCount, repostCount, viewCount, channelPostAuthor)
+
+  public hasMedia (type?: MediaType): boolean {
+    if (type) {
+      return this.media.some(e => e.type === type)
+    }
+
+    return this.media.length > 0
+  }
+
+  public getMedia(type: 'Image'): ImageMedia[]
+
+  public getMedia(type: 'Video'): VideoMedia[]
+
+  public getMedia(type: 'Document'): DocumentMedia[]
+
+  public getMedia(type: 'Audio'): AudioMedia[]
+
+  public getMedia(type: 'RegisteredContact'): ContactMedia<RegisteredContact, 'RegisteredContact'>[]
+
+  public getMedia(
+    type: 'UnregisteredContact'
+  ): ContactMedia<UnregisteredContact, 'UnregisteredContact'>[]
+
+  public getMedia (type?: MediaType): Media[] {
+    if (!type) return this.media
+
+    return this.media.filter(e => e.type === type)
+  }
+
+  public async send (
+    content: string | SendMessageParams,
+    params?: Partial<SendMessageParams>
+  ): Promise<{}> {
+    const options: SendMessageParams = {
+      recipient: this.payload.dialog,
+
+      ...(
+        typeof content === 'string'
+          ? { content, ...params }
+          : content
+      )
+    }
+
+    return this.aitu.api.SendMessage(options)
+  }
+
+  public async reply (
+    content: string | SendMessageParams,
+    params?: Partial<SendMessageParams>
+  ): Promise<{}> {
+    return this.send({
+      replyToMessageId: !this.isChannel ? this.id : undefined,
+      recipient: this.payload.dialog,
+
+      ...(
+        typeof content === 'string'
+          ? { content, ...params }
+          : content
+      )
+    })
+  }
+
+  public serialize (): Record<string, unknown> {
+    return pickProperties(this, [
+      'id',
+      'text',
+      'sender',
+      'chat',
+      'sentAt',
+      'media',
+      'forwardMetadata',
+      'replyMessageId',
+      'channelPostAuthor'
+    ])
+  }
+}
