@@ -62,7 +62,8 @@ export interface Image extends BaseFileMedia {
   height: number
 }
 
-// Gif, Music source https://github.com/btsdigital/bot-api-contract/commit/d07ab7c635c60cdf489c1431b75e2dfd3bd8d20c
+// Gif, Music source:
+// https://github.com/btsdigital/bot-api-contract/commit/d07ab7c635c60cdf489c1431b75e2dfd3bd8d20c
 export interface Gif extends BaseFileMedia {
   type: 'Gif'
   width: number

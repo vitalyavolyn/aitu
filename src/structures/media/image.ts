@@ -1,4 +1,4 @@
-import { FileMedia } from './index'
+import { FileMedia } from '.'
 import { Image } from '../../interfaces'
 import { pickProperties } from '../../utils'
 

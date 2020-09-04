@@ -1,4 +1,4 @@
-import { KeyboardBuilder } from './index'
+import { KeyboardBuilder } from '.'
 import { AllowArray } from '../../types'
 import { InlineCommand, QuickButtonCommand, ReplyCommand } from '../../interfaces'
 

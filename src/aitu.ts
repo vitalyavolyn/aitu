@@ -7,7 +7,7 @@ import { inspectable } from 'inspectable'
 import { AituOptions, ApiObject } from './interfaces'
 import { Updates } from './updates'
 import { ApiMethod } from './types'
-import { ApiRequestParams } from './api/ApiRequestParams'
+import { ApiRequestParams } from './api'
 import { ApiError } from './errors'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -19,7 +19,6 @@ const defaultOptions: Partial<AituOptions> = {
   apiBaseUrl: 'https://messapi.btsdapps.net/bot/v1',
   apiTimeout: 30000,
   apiHeaders: {
-    // TODO: add github link and version info
     'User-Agent': `${name}/${version} (+${repository.url})`
   },
   pollingTimeout: 40000,
@@ -43,7 +42,7 @@ export class Aitu {
    */
   // expect-error is here because proxy target is not an ApiObject, but it doesn't matter anyway
   // @ts-expect-error
-  public readonly api = new Proxy<ApiObject>(() => null, {
+  public readonly api = new Proxy<ApiObject>(() => {}, {
     // redirect api.method(params) to api(method, params)
     get: (_target, method: ApiMethod) => <T extends ApiMethod>(
       params: ApiRequestParams<T>
@@ -95,9 +94,9 @@ export class Aitu {
             url = url.replace(`{${param}}`, String(params[param]))
           } else {
             // FIXME: cringe
-            const urlObj = new URL(url)
-            urlObj.searchParams.append(param, String(params[param]))
-            url = url.replace(/\?.*$/, '') + urlObj.search
+            const urlObject = new URL(url)
+            urlObject.searchParams.append(param, String(params[param]))
+            url = url.replace(/\?.*$/, '') + urlObject.search
           }
         }
       }
@@ -114,9 +113,9 @@ export class Aitu {
             ...(params ?? {})
           }]
         })
-        : httpMethod === 'POST'
+        : (httpMethod === 'POST'
           ? JSON.stringify(params)
-          : undefined
+          : undefined)
 
       try {
         debug(`[${method}] --> ${httpMethod} ${url}`)
@@ -132,9 +131,9 @@ export class Aitu {
             body,
             headers
           })
-        } catch (e) {
-          debug(e)
-          throw e
+        } catch (error) {
+          debug(error)
+          throw error
         }
 
         const json = await response!.json()

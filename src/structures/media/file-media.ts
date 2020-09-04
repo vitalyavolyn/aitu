@@ -1,5 +1,5 @@
 import fetch, { Response } from 'node-fetch'
-import { Media } from './index'
+import { Media } from '.'
 import { BaseFileMedia, InputMedia } from '../../interfaces'
 import { pickProperties } from '../../utils'
 
@@ -33,11 +33,11 @@ export class FileMedia<
   }
 
   public get downloadStream (): Promise<NodeJS.ReadableStream> {
-    return this.download.then(res => res.body)
+    return this.download.then(response => response.body)
   }
 
   public get downloadBuffer (): Promise<Buffer> {
-    return this.download.then(res => res.buffer())
+    return this.download.then(response => response.buffer())
   }
 
   public get isSendable (): boolean {

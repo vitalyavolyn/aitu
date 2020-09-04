@@ -200,10 +200,10 @@ export class Updates {
 
     try {
       await this.startFetchLoop()
-    } catch (e) {
+    } catch (error) {
       this.isStarted = false
 
-      throw e
+      throw error
     }
   }
 
@@ -211,11 +211,11 @@ export class Updates {
     while (this.isStarted) {
       try {
         await this.fetchUpdates()
-      } catch (e) {
-        debug('startFetchLoop:', e)
+      } catch (error) {
+        debug('startFetchLoop:', error)
 
         if (this.retries === this.aitu.options.pollingRetryLimit) {
-          throw e
+          throw error
         }
 
         this.retries = this.retries + 1
@@ -243,9 +243,9 @@ export class Updates {
     let updateResponse: UpdateResponse
     try {
       updateResponse = JSON.parse(responseJson)
-    } catch (e) {
+    } catch (error) {
       debug('JSON parsing error', responseJson)
-      throw e
+      throw error
     }
 
     // debug('updateResponse', updateResponse)
@@ -257,7 +257,7 @@ export class Updates {
 
     const { updates } = updateResponse
 
-    if (!updates.length) return
+    if (updates.length === 0) return
 
     updates.forEach((update) => this.handleUpdate(update))
   }

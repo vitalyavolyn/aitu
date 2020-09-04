@@ -1,4 +1,4 @@
-import { Media } from './index'
+import { Media } from '.'
 import {
   ContactMediaPayload,
   ContactMediaType,

@@ -1,8 +1,8 @@
-export * from './getMe'
+export * from './get-me'
 
-export * from './getChannelInfo'
-export * from './getChannelAdmins'
+export * from './get-channel-info'
+export * from './get-channel-admins'
 
-export * from './getWebhookInfo'
-export * from './setWebhook'
-export * from './deleteWebhook'
+export * from './get-webhook-info'
+export * from './set-webhook'
+export * from './delete-webhook'

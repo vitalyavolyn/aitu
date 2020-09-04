@@ -1,4 +1,4 @@
-import * as api from './index'
+import * as api from '.'
 
 export interface ApiMethods {
   SendMessage: api.SendMessage

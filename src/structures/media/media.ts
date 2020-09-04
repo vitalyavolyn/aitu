@@ -10,7 +10,7 @@ import {
   ContactMedia,
   GifMedia,
   MusicMedia
-} from './index'
+} from '.'
 import { Constructor } from '../../types'
 
 export type MediaOptions<

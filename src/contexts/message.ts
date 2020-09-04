@@ -29,7 +29,7 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
     super(options)
 
     this.media = 'media' in this.payload
-      ? this.payload.media!.map(e => Media.fromObject(e, this.aitu))
+      ? this.payload.media!.map(mediaPayload => Media.fromObject(mediaPayload, this.aitu))
       : []
   }
 
@@ -102,7 +102,7 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
 
   public hasMedia (type?: MediaType): boolean {
     if (type) {
-      return this.media.some(e => e.type === type)
+      return this.media.some(media => media.type === type)
     }
 
     return this.media.length > 0
@@ -125,7 +125,7 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
   public getMedia (type?: MediaType): Media[] {
     if (!type) return this.media
 
-    return this.media.filter(e => e.type === type)
+    return this.media.filter(media => media.type === type)
   }
 
   public async send (

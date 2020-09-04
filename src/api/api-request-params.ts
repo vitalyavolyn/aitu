@@ -15,7 +15,7 @@ import {
   getChannelInfoParams,
   getChannelAdminsParams,
   setWebhookParams
-} from './index'
+} from '.'
 import { ApiMethod } from '../types'
 
 export type ApiRequestParamsMap = {

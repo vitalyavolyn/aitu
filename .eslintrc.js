@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'standard',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jsdoc/recommended'
+    'plugin:jsdoc/recommended',
+    'plugin:unicorn/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -15,10 +16,11 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'sort-class-members',
-    'jsdoc'
+    'jsdoc',
+    'unicorn'
   ],
   rules: {
-    'max-len': ['error', { code: 100, comments: 120 }],
+    'max-len': ['error', { code: 100 }],
     'object-shorthand': ['error'],
 
     'no-unused-vars': 'off',
@@ -31,6 +33,7 @@ module.exports = {
     '@typescript-eslint/brace-style': ['error'],
 
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-member-accessibility': ['error'],
     '@typescript-eslint/ban-types': ['error', {
       types: {
@@ -63,6 +66,13 @@ module.exports = {
     'jsdoc/require-returns': 'off',
 
     'jsdoc/require-jsdoc': ['warn', { publicOnly: true }],
-    'jsdoc/check-examples': 'warn'
+    'jsdoc/check-examples': 'warn',
+
+    'unicorn/prevent-abbreviations': ['error', {
+      replacements: {
+        param: false,
+        params: false
+      }
+    }]
   }
 }

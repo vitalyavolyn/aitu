@@ -64,7 +64,7 @@ export class KickInviteContext extends Context<KickInviteContextPayload, KickInv
 
     const channelId = this.chat.id
 
-    return this.aitu.api.getChannelInfo({ channelId }).then(res => res.channel)
+    return this.aitu.api.getChannelInfo({ channelId }).then(response => response.channel)
   }
 
   /** Send a message to the channel or group */

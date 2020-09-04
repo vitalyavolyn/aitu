@@ -35,7 +35,7 @@ ChannelPermissionsContextPayload, ChannelPermissionsContextType
   public getChannelInfo (): Promise<ChannelPeer> {
     const channelId = this.channel.id
 
-    return this.aitu.api.getChannelInfo({ channelId }).then(res => res.channel)
+    return this.aitu.api.getChannelInfo({ channelId }).then(response => response.channel)
   }
 
   /** Send a message to the channel */
