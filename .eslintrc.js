@@ -32,6 +32,9 @@ module.exports = {
     'brace-style': 'off',
     '@typescript-eslint/brace-style': ['error'],
 
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-useless-constructor': ['error'],
+
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-member-accessibility': ['error'],
