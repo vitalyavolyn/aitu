@@ -1,14 +1,14 @@
 import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
 
-export interface Video extends BaseFileMedia {
+export interface VideoPayload extends BaseFileMedia {
   type: 'Video'
   width: number
   height: number
   duration: number
 }
 
-export class VideoMedia extends FileMedia<Video, 'Video'> {
+export class VideoMedia extends FileMedia<VideoPayload, 'Video'> {
   public get width (): number {
     return this.payload.width
   }

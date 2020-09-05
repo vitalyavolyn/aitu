@@ -12,8 +12,8 @@ import {
 
   MediaType,
   MediaPayload,
-  RegisteredContact,
-  UnregisteredContact
+  RegisteredContactPayload,
+  UnregisteredContactPayload
 } from '../structures'
 import { pickProperties } from '../utils'
 
@@ -147,11 +147,13 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
 
   public getMedia(type: 'Audio'): AudioMedia[]
 
-  public getMedia(type: 'RegisteredContact'): ContactMedia<RegisteredContact, 'RegisteredContact'>[]
+  public getMedia(
+    type: 'RegisteredContact'
+  ): ContactMedia<RegisteredContactPayload, 'RegisteredContact'>[]
 
   public getMedia(
     type: 'UnregisteredContact'
-  ): ContactMedia<UnregisteredContact, 'UnregisteredContact'>[]
+  ): ContactMedia<UnregisteredContactPayload, 'UnregisteredContact'>[]
 
   public getMedia (type?: MediaType): Media[] {
     if (!type) return this.media

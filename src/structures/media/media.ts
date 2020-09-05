@@ -10,19 +10,19 @@ import {
   GifMedia,
   MusicMedia,
 
-  Image,
-  Video,
-  Document,
-  Audio,
-  RegisteredContact, UnregisteredContact,
-  Gif,
-  Music
+  ImagePayload,
+  VideoPayload,
+  DocumentPayload,
+  AudioPayload,
+  RegisteredContactPayload, UnregisteredContactPayload,
+  GifPayload,
+  MusicPayload
 } from '.'
 import { Constructor } from '../../types'
 
 export type MediaPayload =
-Image | Video | Document | Audio |
-RegisteredContact | UnregisteredContact | Gif | Music
+ImagePayload | VideoPayload | DocumentPayload | AudioPayload |
+RegisteredContactPayload | UnregisteredContactPayload | GifPayload | MusicPayload
 
 export type MediaType = MediaPayload['type']
 

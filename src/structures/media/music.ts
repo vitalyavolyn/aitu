@@ -1,12 +1,12 @@
 import { FileMedia, BaseFileMedia } from '.'
 import { pickProperties } from '../../utils'
 
-export interface Music extends BaseFileMedia {
+export interface MusicPayload extends BaseFileMedia {
   type: 'Music'
   duration: number
 }
 
-export class MusicMedia extends FileMedia<Music, 'Music'> {
+export class MusicMedia extends FileMedia<MusicPayload, 'Music'> {
   public get duration (): number {
     return this.payload.duration
   }

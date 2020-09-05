@@ -1,29 +1,29 @@
-import { Media, Image } from '.'
+import { Media, ImagePayload } from '.'
 
-export interface RegisteredContact {
+export interface RegisteredContactPayload {
   type: 'RegisteredContact'
   user: User
 }
 
-export interface UnregisteredContact {
+export interface UnregisteredContactPayload {
   type: 'UnregisteredContact'
   firstName?: string
   lastName?: string
   phoneNumber?: string
 }
 
-export interface User extends UnregisteredContact {
+export interface User extends UnregisteredContactPayload {
   userName: string
   avatar: Avatar
 }
 
 export interface Avatar {
-  full: Image
-  small: Image
+  full: ImagePayload
+  small: ImagePayload
 }
 
 export type ContactMediaType = ContactMediaPayload['type']
-export type ContactMediaPayload = RegisteredContact | UnregisteredContact
+export type ContactMediaPayload = RegisteredContactPayload | UnregisteredContactPayload
 
 export class ContactMedia<
   P extends ContactMediaPayload, Type extends ContactMediaType = ContactMediaType
@@ -34,37 +34,37 @@ export class ContactMedia<
 
   public get firstName (): string {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user.firstName!
-      : (this.payload as UnregisteredContact).firstName!
+      ? (this.payload as RegisteredContactPayload).user.firstName!
+      : (this.payload as UnregisteredContactPayload).firstName!
   }
 
   public get lastName (): string {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user.lastName!
-      : (this.payload as UnregisteredContact).lastName!
+      ? (this.payload as RegisteredContactPayload).user.lastName!
+      : (this.payload as UnregisteredContactPayload).lastName!
   }
 
   public get phoneNumber (): string {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user.phoneNumber!
-      : (this.payload as UnregisteredContact).phoneNumber!
+      ? (this.payload as RegisteredContactPayload).user.phoneNumber!
+      : (this.payload as UnregisteredContactPayload).phoneNumber!
   }
 
   public get userName (): string | undefined {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user.userName!
+      ? (this.payload as RegisteredContactPayload).user.userName!
       : undefined
   }
 
   public get avatar (): Avatar | undefined {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user.avatar!
+      ? (this.payload as RegisteredContactPayload).user.avatar!
       : undefined
   }
 
   public get user (): User | undefined {
     return this.isRegistered
-      ? (this.payload as RegisteredContact).user!
+      ? (this.payload as RegisteredContactPayload).user!
       : undefined
   }
 }
