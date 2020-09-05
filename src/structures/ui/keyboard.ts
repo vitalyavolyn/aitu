@@ -1,4 +1,4 @@
-import { KeyboardBuilder } from '.'
+import { KeyboardBuilder, FormAction } from '.'
 import { AllowArray } from '../../types'
 
 export interface ProxyButton {
@@ -24,6 +24,20 @@ export interface QuickButtonCommand {
    * More info: https://btsdigital.github.io/bot-api-contract/quickbuttoncommand.html
    */
   metadata: string
+  action: 'QUICK_REQUEST' | 'QUICK_FORM_ACTION'
+}
+
+export interface QuickButtonCommandInput {
+  /** Button caption. Max length - 32, recommended - 20 */
+  caption: string
+  /**
+   * JSON or any string to be returned to a service as a parameter in
+   * update QuickButtonSelected for processing and/or data used by client
+   * to perform specific action
+   *
+   * More info: https://btsdigital.github.io/bot-api-contract/quickbuttoncommand.html
+   */
+  metadata: string | FormAction
   action: 'QUICK_REQUEST' | 'QUICK_FORM_ACTION'
 }
 
@@ -58,7 +72,11 @@ export class Keyboard {
     return { options, kind: 'inlineCommand' }
   }
 
-  public static quickButtonCommand (options: QuickButtonCommand): ProxyButton {
+  public static quickButtonCommand (options: QuickButtonCommandInput): ProxyButton {
+    if (typeof options.metadata !== 'string') {
+      options.metadata = JSON.stringify(options.metadata)
+    }
+
     return { options, kind: 'quickButtonCommand' }
   }
 

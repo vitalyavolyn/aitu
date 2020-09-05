@@ -29,24 +29,27 @@ A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired b
   - [ ] uploadAvatar
   - [ ] downloadAvatar
   - [x] getChannelAdmins
-  - [ ] getAvatar - Probably won't be supported
+  - [ ] getAvatar
   - [x] getWebhookInfo
   - [x] setWebhook
   - [x] deleteWebhook
 - [ ] Files uploader
-- [ ] Form builder
+- [x] Form builder
 - [x] QuickButton keyboard builder
 - [x] InlineCommand keyboard builder
 - [x] ReplyCommand keyboard builde
 - [ ] Check all `// TODO` in code
 - [ ] Write tests
 - [ ] Write documentation
+- [ ] Add more examples
 - [x] `context.state`
 - [ ] Proper handlers like `hear(conditions, handler)` that supports RegEx, Strings, Functions as conditions
 - [ ] Scenes
 - [ ] Sessions
 - [x] Make classes [inspectable](https://github.com/negezor/inspectable)
 - [x] Consider renaming `Aitu.callApi` to `api`
-- [ ] Add CI
+- [x] Add CI
 - [ ] Serialize/parse button metatada (if it's an object)
-- [ ] Add types for QuickButtonCommand actions?
+- [x] Add types for QuickButtonCommand actions
+- [ ] Split content options into separate interfaces
+- [ ] Add catalog content type

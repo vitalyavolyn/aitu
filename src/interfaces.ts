@@ -1,7 +1,7 @@
 import { Agent } from 'https'
 import { UpdateType, PeerType, ApiResponse, ApiMethod } from './types'
 import { ApiRequestParams, ApiMethods } from './api'
-import { KeyboardBuilder, ReplyCommand, QuickButtonCommand } from './structures'
+import { KeyboardBuilder, ReplyCommand, QuickButtonCommand, FormMessage, Form } from './structures'
 
 export interface AituOptions {
   token: string
@@ -36,9 +36,19 @@ export interface UiState {
   showRecordAudioButton?: boolean
   showGalleryButton?: boolean
   showSpeechToTextButton?: boolean
+
+  /**
+   * A list composed of QuickButtonCommand objects (or KeyboardBuilder with reply commands)
+   */
   replyKeyboard?: ReplyCommand[] | KeyboardBuilder
+
+  /**
+   * A list composed of QuickButtonCommand objects (or KeyboardBuilder with quick buttons)
+   *
+   * Max length - 25
+   */
   quickButtonCommands?: QuickButtonCommand[] | KeyboardBuilder
-  formMessage?: any // TODO
+  formMessage?: FormMessage | Form
 }
 
 export interface ApiObject extends ApiMethods {

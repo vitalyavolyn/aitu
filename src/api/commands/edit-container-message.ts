@@ -1,4 +1,5 @@
 import { Peer } from '../../interfaces'
+import { ContainerMessage } from '../../structures'
 
 export interface EditContainerMessageParams {
   /**
@@ -7,7 +8,7 @@ export interface EditContainerMessageParams {
    */
   localId?: string
   recipient: Peer
-  content: string // TODO: add builder
+  content: ContainerMessage
 }
 
 export type EditContainerMessage = (params: EditContainerMessageParams) => Promise<{}>

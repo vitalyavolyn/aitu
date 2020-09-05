@@ -1,4 +1,4 @@
-import { InlineCommand, QuickButtonCommand, ReplyCommand } from '.'
+import { InlineCommand, QuickButtonCommand, ReplyCommand, QuickButtonCommandInput } from '.'
 
 export type KeyboardRow = (InlineCommand | QuickButtonCommand | ReplyCommand)[]
 
@@ -22,7 +22,7 @@ export class KeyboardBuilder {
     return this
   }
 
-  public quickButtonCommand (options: QuickButtonCommand): this {
+  public quickButtonCommand (options: QuickButtonCommandInput): this {
     this.ensureType('quick')
 
     if (options.caption.length > 32) {
@@ -31,6 +31,10 @@ export class KeyboardBuilder {
 
     if (this.currentRow.length === 25) {
       throw new RangeError('Max count of buttons is 25')
+    }
+
+    if (typeof options.metadata !== 'string') {
+      options.metadata = JSON.stringify(options.metadata)
     }
 
     this.currentRow.push(options)
