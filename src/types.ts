@@ -49,7 +49,8 @@ export type ApiResponse = any // ¯\_(ツ)_/¯
 export type UpdateResponse = {
   updates: Update[]
 } | {
-  status: number, message: string
+  status: number
+  message: string
 } // TODO: add type for APIError
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

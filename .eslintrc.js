@@ -46,6 +46,16 @@ module.exports = {
       'ts-expect-error': false
     }],
     '@typescript-eslint/type-annotation-spacing': ['error'],
+    '@typescript-eslint/member-delimiter-style': ['error', {
+      multiline: {
+        delimiter: 'none',
+        requireLast: true
+      },
+      singleline: {
+        delimiter: 'comma',
+        requireLast: false
+      }
+    }],
 
     'sort-class-members/sort-class-members': ['error', {
       order: [

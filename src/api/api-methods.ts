@@ -18,6 +18,6 @@ export interface ApiMethods {
   getChannelInfo: api.getChannelInfo
   getChannelAdmins: api.getChannelAdmins
   getWebhookInfo: api.getWebhookInfo
-  setWebhook: api.setWebhook,
+  setWebhook: api.setWebhook
   deleteWebhook: api.deleteWebhook
 }
