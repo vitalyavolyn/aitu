@@ -87,16 +87,17 @@ export class Aitu {
       let url = apiBaseUrl + (methodUrls[method] ?? '/updates')
 
       if (httpMethod === 'GET') {
+        const query = new URLSearchParams()
+
         for (const param in params) {
           if (url.includes(`{${param}}`)) {
             url = url.replace(`{${param}}`, String(params[param]))
           } else {
-            // FIXME: cringe
-            const urlObject = new URL(url)
-            urlObject.searchParams.append(param, String(params[param]))
-            url = url.replace(/\?.*$/, '') + urlObject.search
+            query.append(param, String(params[param]))
           }
         }
+
+        url = `${url}?${query.toString()}`
       }
 
       const emptyRequiredParams = url.match(/{([a-z]+)}/i)
