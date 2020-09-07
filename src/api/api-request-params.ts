@@ -14,7 +14,8 @@ import {
 
   getChannelInfoParams,
   getChannelAdminsParams,
-  setWebhookParams
+  setWebhookParams,
+  getAvatarParams
 } from '.'
 import { ApiMethod } from '../types'
 
@@ -39,6 +40,7 @@ export interface ApiRequestParamsMap {
   getWebhookInfo: {}
   setWebhook: setWebhookParams
   deleteWebhook: {}
+  getAvatar: getAvatarParams
 }
 
 export type ApiRequestParams<C extends ApiMethod> = ApiRequestParamsMap[C]

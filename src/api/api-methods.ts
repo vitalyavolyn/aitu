@@ -20,4 +20,5 @@ export interface ApiMethods {
   getWebhookInfo: api.getWebhookInfo
   setWebhook: api.setWebhook
   deleteWebhook: api.deleteWebhook
+  getAvatar: api.getAvatar
 }

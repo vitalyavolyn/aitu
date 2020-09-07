@@ -31,7 +31,7 @@ A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired b
   - [ ] uploadAvatar
   - [ ] downloadAvatar
   - [x] getChannelAdmins
-  - [ ] getAvatar
+  - [x] getAvatar
   - [x] getWebhookInfo
   - [x] setWebhook
   - [x] deleteWebhook

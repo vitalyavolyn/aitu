@@ -68,7 +68,8 @@ export class Aitu {
         getChannelAdmins: '/channels/{channelId}/admins',
         getWebhookInfo: '/webhook',
         setWebhook: '/webhook',
-        deleteWebhook: '/webhook'
+        deleteWebhook: '/webhook',
+        getAvatar: '/user/{userId}/avatar/'
       }
 
       const methodTypes: Record<string, string> = {

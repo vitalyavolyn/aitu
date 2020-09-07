@@ -42,7 +42,8 @@ ApiCommand |
 'getChannelAdmins' |
 'getWebhookInfo' |
 'setWebhook' |
-'deleteWebhook'
+'deleteWebhook' |
+'getAvatar'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApiResponse = any // ¯\_(ツ)_/¯
