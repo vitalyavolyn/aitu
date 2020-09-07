@@ -9,7 +9,7 @@ export interface FormMessage {
 export interface FormOptions {
   header: Header
   id: string
-  content: Array<Content>
+  content: Content[]
   options?: Options
   bottom_bar?: BottomBar
 }
@@ -17,7 +17,7 @@ export interface FormOptions {
 export class Form {
   public header: Header
   public id: string
-  public content: Array<Content>
+  public content: Content[]
   public options?: Options
   public bottom_bar?: BottomBar
 

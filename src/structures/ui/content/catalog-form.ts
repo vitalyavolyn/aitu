@@ -13,7 +13,7 @@ export interface CatalogItem {
 export interface Catalog {
   // title, ???
   options: Options
-  items: Array<CatalogItem>
+  items: CatalogItem[]
 }
 
 export interface CatalogForm extends BaseContent {

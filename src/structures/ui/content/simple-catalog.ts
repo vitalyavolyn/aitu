@@ -14,7 +14,7 @@ export interface SimpleCatalogItem {
   description?: string
   form_action?: FormAction
   file_metadata?: FileMetadata
-  item_buttons?: Array<SimpleCatalogItemButton>
+  item_buttons?: SimpleCatalogItemButton[]
   options?: Options
 }
 

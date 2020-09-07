@@ -11,7 +11,7 @@ export interface Radiogroup extends BaseContent {
   type: 'radiogroup'
   id: string
   title?: string
-  items?: Array<RadioItem>
+  items?: RadioItem[]
   // indent_outer, orientation
   options?: Options
   validations_rules?: ValidationRule[]
