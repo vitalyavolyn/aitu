@@ -66,6 +66,7 @@ export class Aitu {
         getMe: '/getMe',
         getChannelInfo: '/channels/{channelId}',
         getChannelAdmins: '/channels/{channelId}/admins',
+        getChannelMessages: '/channels/{channelId}/messages',
         getWebhookInfo: '/webhook',
         setWebhook: '/webhook',
         deleteWebhook: '/webhook',

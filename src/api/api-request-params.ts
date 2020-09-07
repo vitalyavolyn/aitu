@@ -14,6 +14,7 @@ import {
 
   getChannelInfoParams,
   getChannelAdminsParams,
+  getChannelMessagesParams,
   setWebhookParams,
   getAvatarParams
 } from '.'
@@ -33,10 +34,10 @@ export interface ApiRequestParamsMap {
   SendContainerMessage: SendContainerMessageParams
   EditContainerMessage: EditContainerMessageParams
 
-  // TODO: replace empty objects with interfaces?
   getMe: {}
   getChannelInfo: getChannelInfoParams
   getChannelAdmins: getChannelAdminsParams
+  getChannelMessages: getChannelMessagesParams
   getWebhookInfo: {}
   setWebhook: setWebhookParams
   deleteWebhook: {}

@@ -40,6 +40,7 @@ ApiCommand |
 'getMe' |
 'getChannelInfo' |
 'getChannelAdmins' |
+'getChannelMessages' |
 'getWebhookInfo' |
 'setWebhook' |
 'deleteWebhook' |

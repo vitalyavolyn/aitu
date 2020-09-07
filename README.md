@@ -25,7 +25,7 @@ A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired b
   - [x] All commands
   - [x] getMe
   - [x] getChannelInfo
-  - [ ] getChannelMessages (direction = EARLY | LATER | AROUND, messageId - required if direction is AROUND)
+  - [x] getChannelMessages (direction = EARLY | LATER | AROUND, messageId - required if direction is AROUND)
   - [ ] uploadFiles
   - [x] downloadFile - Supported in FileMedia
   - [ ] uploadAvatar
