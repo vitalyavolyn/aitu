@@ -1,7 +1,7 @@
 import { Agent } from 'https'
 import { UpdateType, PeerType, ApiResponse, ApiMethod } from './types'
 import { ApiRequestParams, ApiMethods } from './api'
-import { KeyboardBuilder, ReplyCommand, QuickButtonCommand, FormMessage, Form } from './structures'
+import { KeyboardBuilder, ReplyCommand, QuickButtonCommand, FormMessage } from './structures'
 
 export interface AituOptions {
   token: string
@@ -48,7 +48,7 @@ export interface UiState {
    * Max length - 25
    */
   quickButtonCommands?: QuickButtonCommand[] | KeyboardBuilder
-  formMessage?: FormMessage | Form
+  formMessage?: FormMessage
 }
 
 export interface ApiObject extends ApiMethods {

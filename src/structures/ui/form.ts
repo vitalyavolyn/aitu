@@ -1,10 +1,12 @@
 /* eslint camelcase: ["error", { allow: ["bottom_bar"] } ] */
 import { Header, Options, Content, BottomBar } from '.'
 
-export interface FormMessage {
+export interface FormObject {
   /** JSON string with form object */
   jsonForm: string
 }
+
+export type FormMessage = FormObject | Form
 
 export interface FormOptions {
   header: Header
@@ -29,7 +31,7 @@ export class Form {
     this.bottom_bar = options.bottom_bar
   }
 
-  public toJSON (): FormMessage {
+  public toJSON (): FormObject {
     const { id, header, content, options, bottom_bar } = this
 
     return {
