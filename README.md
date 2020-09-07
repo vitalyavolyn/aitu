@@ -1,4 +1,6 @@
 # aitu
+![npm](https://img.shields.io/npm/v/aitu?style=flat-square)
+![CircleCI](https://img.shields.io/circleci/build/github/vitalyavolyn/aitu?style=flat-square)
 
 A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired by [negezor/vk-io](https://github.com/negezor/vk-io) and [nitreojs/puregram](https://github.com/nitreojs/puregram).
 
