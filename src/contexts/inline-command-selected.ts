@@ -3,6 +3,7 @@ import { Context } from './context'
 import { SendMessageParams, EditMessageParams } from '../api'
 import { PeerType } from '../types'
 import { pickProperties } from '../utils'
+import { FormMessage, QuickButtonCommand, KeyboardBuilder, ContainerMessage } from '../structures'
 
 export interface InlineCommandSelectedUpdate extends Update {
   type: 'InlineCommandSelected'
@@ -75,6 +76,26 @@ InlineCommandSelectedContextPayload, InlineCommandSelectedContextType
     }
 
     return this.aitu.api.SendMessage(options)
+  }
+
+  public async sendForm (formMessage: FormMessage): Promise<{}> {
+    return this.aitu.api.SendUiState({
+      uiState: { formMessage },
+      recipient: this.chat
+    })
+  }
+
+  public async sendQuickButtons (
+    quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
+  ): Promise<{}> {
+    return this.aitu.api.SendUiState({
+      uiState: { quickButtonCommands },
+      recipient: this.chat
+    })
+  }
+
+  public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
+    return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }
 
   public async editMessage (

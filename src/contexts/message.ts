@@ -13,7 +13,11 @@ import {
   MediaType,
   MediaPayload,
   RegisteredContactPayload,
-  UnregisteredContactPayload
+  UnregisteredContactPayload,
+  FormMessage,
+  ContainerMessage,
+  QuickButtonCommand,
+  KeyboardBuilder
 } from '../structures'
 import { pickProperties } from '../utils'
 
@@ -196,6 +200,26 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
           : content
       )
     })
+  }
+
+  public async sendForm (formMessage: FormMessage): Promise<{}> {
+    return this.aitu.api.SendUiState({
+      uiState: { formMessage },
+      recipient: this.chat
+    })
+  }
+
+  public async sendQuickButtons (
+    quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
+  ): Promise<{}> {
+    return this.aitu.api.SendUiState({
+      uiState: { quickButtonCommands },
+      recipient: this.chat
+    })
+  }
+
+  public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
+    return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }
 
   public serialize (): Record<string, unknown> {
