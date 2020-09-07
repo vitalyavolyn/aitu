@@ -11,7 +11,7 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 12
+    ecmaVersion: 2020
   },
   plugins: [
     '@typescript-eslint',
@@ -83,12 +83,6 @@ module.exports = {
     'jsdoc/require-jsdoc': ['warn', { publicOnly: true }],
     'jsdoc/check-examples': ['warn'],
 
-    'unicorn/prevent-abbreviations': ['error', {
-      replacements: {
-        param: false,
-        params: false,
-        ctx: false
-      }
-    }]
+    'unicorn/prevent-abbreviations': 'off'
   }
 }

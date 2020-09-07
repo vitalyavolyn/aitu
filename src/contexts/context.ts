@@ -5,14 +5,14 @@ import { AllowArray, UpdateType } from '../types'
 
 export interface ContextOptions<
   P = {},
-  Type extends string = string
+  Type extends UpdateType = UpdateType
 > {
   aitu: Aitu
   payload: P
-  type: UpdateType
+  type: Type
 }
 
-export class Context<P = {}, Type extends string = string> {
+export class Context<P = {}, Type extends UpdateType = UpdateType> {
   public type: UpdateType
   public payload: P
   protected aitu: Aitu

@@ -1,11 +1,6 @@
 import { KeyboardBuilder, FormAction } from '.'
 import { AllowArray } from '../../types'
 
-export interface ProxyButton {
-  kind: 'inlineCommand' | 'quickButtonCommand' | 'replyCommand'
-  options: InlineCommand | QuickButtonCommand | ReplyCommand
-}
-
 export interface InlineCommand {
   /** Button caption. Max length - 32, recommended - 20 */
   caption: string
@@ -44,6 +39,11 @@ export interface QuickButtonCommandInput {
 export interface ReplyCommand {
   /** Button caption. Max length - 32, recommended - 20 */
   caption: string
+}
+
+export interface ProxyButton {
+  kind: 'inlineCommand' | 'quickButtonCommand' | 'replyCommand'
+  options: InlineCommand | QuickButtonCommand | ReplyCommand
 }
 
 export class Keyboard {
