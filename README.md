@@ -52,4 +52,4 @@ A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired b
 - [ ] Serialize/parse button metatada (if it's an object)
 - [x] Add types for QuickButtonCommand actions
 - [ ] Split content options into separate interfaces
-- [ ] Add catalog content type
+- [x] Add catalog content type
