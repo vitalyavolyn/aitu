@@ -1,7 +1,7 @@
 import { Context, ContextOptions } from './context'
 import { SendMessageParams } from '../api'
 import { Peer, Update } from '../interfaces'
-import { PeerType, MessageForwardMetadata } from '../types'
+import { PeerType } from '../types'
 import {
   Media,
   ImageMedia,
@@ -40,6 +40,10 @@ export interface MessageUpdate extends Update {
   channelPostAuthor?: Peer
 
   replyToMessageId?: string
+}
+
+export interface MessageForwardMetadata {
+  sender: Peer
 }
 
 export interface MessageEditedUpdate extends Update {

@@ -3,10 +3,14 @@ import { inspectable } from 'inspectable'
 import { Aitu } from '../aitu'
 import { AllowArray, UpdateType } from '../types'
 
-export type ContextOptions<
+export interface ContextOptions<
   P = {},
   Type extends string = string
-> = { aitu: Aitu, payload: P, type: UpdateType }
+> {
+  aitu: Aitu
+  payload: P
+  type: UpdateType
+}
 
 export class Context<P = {}, Type extends string = string> {
   public type: UpdateType

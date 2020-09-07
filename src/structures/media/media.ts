@@ -26,10 +26,14 @@ RegisteredContactPayload | UnregisteredContactPayload | GifPayload | MusicPayloa
 
 export type MediaType = MediaPayload['type']
 
-export type MediaOptions<
+export interface MediaOptions<
   P = {},
   Type extends MediaType = MediaType
-> = { aitu: Aitu, payload: P, type: Type }
+> {
+  aitu: Aitu
+  payload: P
+  type: Type
+}
 
 export class Media<P = {}, Type extends MediaType = MediaType> {
   public static fromObject (media: MediaPayload, aitu: Aitu): Media {

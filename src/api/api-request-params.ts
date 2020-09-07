@@ -18,7 +18,7 @@ import {
 } from '.'
 import { ApiMethod } from '../types'
 
-export type ApiRequestParamsMap = {
+export interface ApiRequestParamsMap {
   SendMessage: SendMessageParams
   EditMessage: EditMessageParams
   ForwardMessage: ForwardMessageParams

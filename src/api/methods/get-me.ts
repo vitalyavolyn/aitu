@@ -1,4 +1,4 @@
-export type getMeResponse = {
+export interface getMeResponse {
   botId: string
   name: string
   username: string

@@ -1,4 +1,4 @@
-export type getWebhookInfoResponse = {
+export interface getWebhookInfoResponse {
   url: string
 }
 

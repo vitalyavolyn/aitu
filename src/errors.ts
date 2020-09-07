@@ -1,4 +1,7 @@
-export type ApiErrorParams = { status: number, message: string }
+export interface ApiErrorParams {
+  status: number
+  message: string
+}
 
 export class ApiError extends Error {
   public code: number
