@@ -80,7 +80,7 @@ module.exports = {
     'jsdoc/require-returns': 'off',
 
     'jsdoc/require-jsdoc': ['warn', { publicOnly: true }],
-    'jsdoc/check-examples': 'warn',
+    'jsdoc/check-examples': ['warn'],
 
     'unicorn/prevent-abbreviations': ['error', {
       replacements: {

@@ -12,11 +12,12 @@ export interface Input extends BaseContent {
   /** Text to show in input when it's empty */
   placeholder?: string
   /**
-   * Example:
+   * @example
+   * // Phone number
+   * '+7 [___] [_______]'
    *
-   * Phone number: `'+7 [___] [_______]'`
-   *
-   * 6 numbers in groups of 3: `'[___ ___]'`
+   * // 6 numbers in groups of 3
+   * '[___ ___]'
    */
   mask?: string
   // input_type, currency, indent_outer
