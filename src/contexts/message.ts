@@ -141,8 +141,6 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
     return 'channelPostAuthor' in this.payload ? this.payload.channelPostAuthor : undefined
   }
 
-  // TODO: add more getters (likeCount, repostCount, viewCount)
-
   public hasMedia (type?: MediaType): boolean {
     if (type) {
       return this.media.some(media => media.type === type)

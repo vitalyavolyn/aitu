@@ -10,7 +10,6 @@ export interface BaseFileMedia {
   size: number
 }
 
-// TODO: can bot upload gifs/send music?
 export interface InputMedia {
   fileId: string
   name: string
@@ -55,7 +54,6 @@ export class FileMedia<
   }
 
   public get isSendable (): boolean {
-    // TODO: figure out if bot can send more types of media
     return ['Image', 'Video', 'Audio', 'Document'].includes(this.type)
   }
 

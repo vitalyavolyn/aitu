@@ -6,7 +6,7 @@ import { pickProperties } from '../utils'
 
 export interface ChannelPermissionsGrantedUpdate extends Update {
   type: 'ChannelPermissionsGranted'
-  channel: Peer & { name: string } // TODO: replace with ChannelPeer?
+  channel: ChannelPeer
   permissions: ChannelPermission[]
 }
 
