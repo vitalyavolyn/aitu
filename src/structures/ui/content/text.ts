@@ -8,4 +8,5 @@ export interface Text extends BaseContent {
   title: string
   options?: Options
   form_action?: FormAction
+  /* eslint-enable camelcase */
 }

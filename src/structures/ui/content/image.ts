@@ -13,4 +13,5 @@ export interface Image extends BaseContent {
   // width, height, indent_outer (?), flex_options, alignment
   options?: Options
   form_action?: FormAction
+  /* eslint-enable camelcase */
 }

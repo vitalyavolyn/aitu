@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
 interface FormActionBase {
+  /* eslint-disable camelcase */
   action: string
   data_template?: string
   hidden_metadata?: string
@@ -49,6 +49,7 @@ interface RedirectCallAction extends FormActionBase {
   action: 'redirect_call'
   /** Phone number to be opened in dialer */
   data_template: string
+  /* eslint-enable camelcase */
 }
 
 export type FormAction =

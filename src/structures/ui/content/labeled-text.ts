@@ -9,4 +9,5 @@ export interface LabeledText extends BaseContent {
   label: string
   // indents
   options?: Options
+  /* eslint-enable camelcase */
 }

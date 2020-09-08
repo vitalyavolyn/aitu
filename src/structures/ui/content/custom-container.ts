@@ -10,6 +10,7 @@ export interface CustomContainer extends BaseContent {
   options?: Options
   content: CardContent[]
   form_action?: FormAction
+  /* eslint-enable camelcase */
 }
 
 export interface CardContainer extends Omit<CustomContainer, 'type'> {

@@ -23,4 +23,5 @@ export interface Input extends BaseContent {
   // input_type, currency, indent_outer
   options?: Options
   validations_rules?: ValidationRule[]
+  /* eslint-enable camelcase */
 }

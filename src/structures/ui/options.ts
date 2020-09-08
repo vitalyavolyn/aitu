@@ -41,4 +41,5 @@ export interface Options {
   min_date?: string
   /** DD-MM-YYYY */
   max_date?: string
+  /* eslint-enable camelcase */
 }

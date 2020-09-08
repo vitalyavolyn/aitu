@@ -10,4 +10,5 @@ export interface Button extends BaseContent {
   // background_color, item_right_icon_resource, item_left_icon_resource, text_color, indent_outer
   options?: Options
   form_action?: FormAction
+  /* eslint-enable camelcase */
 }

@@ -14,4 +14,5 @@ export interface TextArea extends BaseContent {
   // insets
   options?: Options
   validations_rules?: ValidationRule[]
+  /* eslint-enable camelcase */
 }

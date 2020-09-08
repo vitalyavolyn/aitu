@@ -11,4 +11,5 @@ export interface Checkbox extends BaseContent {
   // text_size, text_color, indent_outer
   options?: Options
   validations_rules?: ValidationRule[]
+  /* eslint-enable camelcase */
 }

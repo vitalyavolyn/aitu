@@ -50,7 +50,7 @@ module.exports = {
       extendDefaults: true
     }],
     '@typescript-eslint/ban-ts-comment': ['error', {
-      'ts-ignore': true,
+      'ts-ignore': 'allow-with-description',
       'ts-expect-error': false
     }],
     '@typescript-eslint/type-annotation-spacing': ['error'],

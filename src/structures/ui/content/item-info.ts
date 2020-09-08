@@ -11,4 +11,5 @@ export interface ItemInfo extends BaseContent {
   // show_divider, indent_outer, (iconResource?)
   options?: Options
   form_action?: FormAction
+  /* eslint-enable camelcase */
 }

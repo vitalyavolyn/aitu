@@ -7,4 +7,5 @@ export interface BottomBar extends BaseContent {
   id: string
   title: string
   form_action: FormAction
+  /* eslint-enable camelcase */
 }

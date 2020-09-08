@@ -9,4 +9,5 @@ export interface MediaPicker extends BaseContent {
   // height, width, should_open_editor, max_count, media_type, indent_outer
   options?: Options
   validations_rules?: ValidationRule[]
+  /* eslint-enable camelcase */
 }

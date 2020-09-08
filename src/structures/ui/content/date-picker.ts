@@ -12,4 +12,5 @@ export interface DatePicker extends BaseContent {
   // min_date, max_date
   options?: Options
   validations_rules?: ValidationRule[]
+  /* eslint-enable camelcase */
 }

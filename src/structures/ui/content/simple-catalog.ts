@@ -16,6 +16,7 @@ export interface SimpleCatalogItem {
   file_metadata?: FileMetadata
   item_buttons?: SimpleCatalogItemButton[]
   options?: Options
+  /* eslint-enable camelcase */
 }
 
 export interface SimpleCatalog extends BaseContent {

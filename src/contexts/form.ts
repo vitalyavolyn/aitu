@@ -57,6 +57,7 @@ export interface AdditionalMetadata {
       metadata: string
     }
   }
+  /* eslint-enable camelcase */
 }
 
 export type FormContextPayload = FormClosedUpdate | FormSubmittedUpdate | FormMessageSentUpdate

@@ -3,4 +3,5 @@ export interface FileMetadata {
   file_id: string
   file_type: string
   filename: string
+  /* eslint-enable camelcase */
 }

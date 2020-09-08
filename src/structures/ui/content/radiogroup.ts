@@ -16,4 +16,5 @@ export interface Radiogroup extends BaseContent {
   options?: Options
   validations_rules?: ValidationRule[]
   default_value?: RadioItem
+  /* eslint-enable camelcase */
 }

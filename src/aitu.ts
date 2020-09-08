@@ -10,8 +10,7 @@ import { ApiMethod } from './types'
 import { ApiRequestParams } from './api'
 import { ApiError } from './errors'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore: ts doesn't like json files outside of rootDir
 import { name, version, repository } from '../package.json'
 
 const defaultOptions: Partial<AituOptions> = {

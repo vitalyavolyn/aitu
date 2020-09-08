@@ -26,4 +26,5 @@ export interface CatalogForm extends BaseContent {
   // indent_outer, search_enabled
   options?: Options
   catalog?: Catalog
+  /* eslint-enable camelcase */
 }

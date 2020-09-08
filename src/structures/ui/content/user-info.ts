@@ -8,4 +8,5 @@ export interface UserInfo extends BaseContent {
   user_id: string
   // indent_outer
   options?: Options
+  /* eslint-enable camelcase */
 }

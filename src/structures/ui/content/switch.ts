@@ -10,4 +10,5 @@ export interface Switch extends BaseContent {
   default_state?: boolean
   // indent_outer
   options?: Options
+  /* eslint-enable camelcase */
 }
