@@ -85,8 +85,12 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
     return this.payload.author
   }
 
-  public get chat (): Peer {
+  public get dialog (): Peer {
     return this.payload.dialog
+  }
+
+  public get chat (): Peer {
+    return this.dialog
   }
 
   public get chatType (): PeerType {
@@ -137,7 +141,7 @@ export class MessageContext extends Context<MessageContextPayload, MessageContex
     return 'channelPostAuthor' in this.payload ? this.payload.channelPostAuthor : undefined
   }
 
-  // TODO: add more getters (likeCount, repostCount, viewCount, channelPostAuthor)
+  // TODO: add more getters (likeCount, repostCount, viewCount)
 
   public hasMedia (type?: MediaType): boolean {
     if (type) {

@@ -87,6 +87,7 @@ module.exports = {
     'jsdoc/require-jsdoc': ['warn', { publicOnly: true }],
     'jsdoc/check-examples': ['warn'],
 
-    'unicorn/prevent-abbreviations': 'off'
+    'unicorn/prevent-abbreviations': 'off',
+    'unicorn/no-reduce': 'off'
   }
 }

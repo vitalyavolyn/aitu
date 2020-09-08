@@ -32,7 +32,10 @@ import {
   MessageIdAssignedContextType,
 
   QuickButtonSelectedContext,
-  QuickButtonSelectedContextType
+  QuickButtonSelectedContextType,
+
+  FormContext,
+  FormContextType
 } from './contexts'
 import { ApiError } from './errors'
 
@@ -70,6 +73,10 @@ const rawContexts: [UpdateType[], Constructor<Context>][] = [
   [
     ['QuickButtonSelected'],
     QuickButtonSelectedContext
+  ],
+  [
+    ['FormClosed', 'FormMessageSent', 'FormSubmitted'],
+    FormContext
   ]
 ]
 
@@ -162,6 +169,11 @@ export class Updates {
   public on<T = {}> (
     events: AllowArray<QuickButtonSelectedContextType>,
     handlers: AllowArray<Middleware<QuickButtonSelectedContext & T>>
+  ): this
+
+  public on<T = {}> (
+    events: AllowArray<FormContextType>,
+    handlers: AllowArray<Middleware<FormContext & T>>
   ): this
 
   public on (

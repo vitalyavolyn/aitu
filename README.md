@@ -14,13 +14,13 @@ A work-in-progress library for Aitu.io's ~~bot~~ Service API, heavily inspired b
   - [x] Media files
   - [x] Contacts
   - [x] Add media getter & checker to MessageContext
-- [ ] Support all events:
+- [x] Support all events:
   - [x] MessageIdAssigned
   - [x] QuickButtonSelected
   - [x] InlineCommandSelected
-  - [ ] FormSubmitted
-  - [ ] FormMessageSent
-  - [ ] FormClosed
+  - [x] FormSubmitted
+  - [x] FormMessageSent
+  - [x] FormClosed
 - [ ] Support all [API methods](https://btsdigital.github.io/bot-api-contract/endpoints.html):
   - [x] All commands
   - [x] getMe
