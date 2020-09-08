@@ -46,6 +46,7 @@ export interface AdditionalMetadata {
   hidden_metadata: string
   logging_metadata?: { type: FormAction['action'], timestamp: number }
   form?: {
+    /** Form results. For object-like structure, see `context.formResults` */
     content: FormContentResult[]
     /** Submitted form id */
     id: string
@@ -98,7 +99,7 @@ export class FormContext extends Context<FormContextPayload, FormContextType> {
    * Get form results as an object where keys
    * are input ids and values are input values
    */
-  public get formResult (): Record<string, string | undefined> {
+  public get formResults (): Record<string, string | undefined> {
     if (!this.additionalMetadata?.form) return {}
 
     return this.additionalMetadata.form.content.reduce(
@@ -151,7 +152,7 @@ export class FormContext extends Context<FormContextPayload, FormContextType> {
       'chat',
       'metadata',
       'additionalMetadata',
-      'formResult'
+      'formResults'
     ]
 
     if (this.messageId) {
