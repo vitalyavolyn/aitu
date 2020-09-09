@@ -13,9 +13,7 @@ export interface NewChannelSubscriberUpdate extends Update {
 export type NewChannelSubscriberContextPayload = NewChannelSubscriberUpdate
 export type NewChannelSubscriberContextType = NewChannelSubscriberContextPayload['type']
 
-export class NewChannelSubscriberContext extends Context<
-NewChannelSubscriberContextPayload, NewChannelSubscriberContextType
-> {
+export class NewChannelSubscriberContext extends Context<NewChannelSubscriberContextPayload> {
   public get channel (): Peer {
     return { id: this.payload.channelId, type: 'CHANNEL' }
   }

@@ -64,7 +64,7 @@ export interface AdditionalMetadata {
 export type FormContextPayload = FormClosedUpdate | FormSubmittedUpdate | FormMessageSentUpdate
 export type FormContextType = FormContextPayload['type']
 
-export class FormContext extends Context<FormContextPayload, FormContextType> {
+export class FormContext extends Context<FormContextPayload> {
   public get formId (): string {
     return this.payload.formId
   }

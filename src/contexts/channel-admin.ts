@@ -20,9 +20,7 @@ export interface ChannelAdminAddedUpdate extends ChannelAdminUpdate {
 export type ChannelAdminContextPayload = ChannelAdminAddedUpdate | ChannelAdminDeletedUpdate
 export type ChannelAdminContextType = ChannelAdminContextPayload['type']
 
-export class ChannelAdminContext extends Context<
-ChannelAdminContextPayload, ChannelAdminContextType
-> {
+export class ChannelAdminContext extends Context<ChannelAdminContextPayload> {
   public get isAdded (): boolean {
     return this.type === 'ChannelAdminAdded'
   }

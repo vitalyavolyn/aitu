@@ -2,17 +2,16 @@ import { inspectable } from 'inspectable'
 
 import { Aitu } from '../aitu'
 import { AllowArray, UpdateType } from '../types'
+import { Update } from '../interfaces'
 
 export interface ContextOptions<
-  P = {},
-  Type extends UpdateType = UpdateType
+  P extends Update = Update,
 > {
   aitu: Aitu
   payload: P
-  type: Type
 }
 
-export class Context<P = {}, Type extends UpdateType = UpdateType> {
+export class Context<P extends Update = Update> {
   public type: UpdateType
   public payload: P
   protected aitu: Aitu
@@ -21,10 +20,10 @@ export class Context<P = {}, Type extends UpdateType = UpdateType> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public state: Record<string, any> = {}
 
-  public constructor (options: ContextOptions<P, Type>) {
+  public constructor (options: ContextOptions<P>) {
     this.aitu = options.aitu
     this.payload = options.payload
-    this.type = options.type
+    this.type = options.payload.type
   }
 
   public get [Symbol.toStringTag] (): string {

@@ -15,9 +15,7 @@ export interface MessageIdAssignedUpdate extends Update {
 export type MessageIdAssignedContextPayload = MessageIdAssignedUpdate
 export type MessageIdAssignedContextType = MessageIdAssignedContextPayload['type']
 
-export class MessageIdAssignedContext extends Context<
-MessageIdAssignedContextPayload, MessageIdAssignedContextType
-> {
+export class MessageIdAssignedContext extends Context<MessageIdAssignedContextPayload> {
   public get id (): string {
     return this.payload.id
   }

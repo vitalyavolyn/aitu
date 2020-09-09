@@ -15,9 +15,7 @@ export interface QuickButtonSelectedUpdate extends Update {
 export type QuickButtonSelectedContextPayload = QuickButtonSelectedUpdate
 export type QuickButtonSelectedContextType = QuickButtonSelectedContextPayload['type']
 
-export class QuickButtonSelectedContext extends Context<
-QuickButtonSelectedContextPayload, QuickButtonSelectedContextType
-> {
+export class QuickButtonSelectedContext extends Context<QuickButtonSelectedContextPayload> {
   public get dialog (): Peer {
     return this.payload.dialog
   }

@@ -38,7 +38,7 @@ KickedFromChannelUpdate
 
 export type KickInviteContextType = KickInviteContextPayload['type']
 
-export class KickInviteContext extends Context<KickInviteContextPayload, KickInviteContextType> {
+export class KickInviteContext extends Context<KickInviteContextPayload> {
   public get isInvited (): boolean {
     return ['InvitedToGroupUpdate', 'InvitedToChannelUpdate'].includes(this.type)
   }

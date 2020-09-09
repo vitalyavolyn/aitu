@@ -17,9 +17,7 @@ export interface InlineCommandSelectedUpdate extends Update {
 export type InlineCommandSelectedContextPayload = InlineCommandSelectedUpdate
 export type InlineCommandSelectedContextType = InlineCommandSelectedContextPayload['type']
 
-export class InlineCommandSelectedContext extends Context<
-InlineCommandSelectedContextPayload, InlineCommandSelectedContextType
-> {
+export class InlineCommandSelectedContext extends Context<InlineCommandSelectedContextPayload> {
   public get messageId (): string {
     return this.payload.messageId
   }

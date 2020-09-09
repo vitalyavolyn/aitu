@@ -61,10 +61,10 @@ export interface MessageEditedUpdate extends Update {
 export type MessageContextPayload = MessageUpdate | MessageEditedUpdate
 export type MessageContextType = MessageContextPayload['type']
 
-export class MessageContext extends Context<MessageContextPayload, MessageContextType> {
+export class MessageContext extends Context<MessageContextPayload> {
   public media: Media[]
 
-  public constructor (options: ContextOptions<MessageContextPayload, MessageContextType>) {
+  public constructor (options: ContextOptions<MessageContextPayload>) {
     super(options)
 
     this.media = 'media' in this.payload

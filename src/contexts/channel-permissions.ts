@@ -21,9 +21,7 @@ ChannelPermissionsRevokedUpdate
 
 export type ChannelPermissionsContextType = ChannelPermissionsContextPayload['type']
 
-export class ChannelPermissionsContext extends Context<
-ChannelPermissionsContextPayload, ChannelPermissionsContextType
-> {
+export class ChannelPermissionsContext extends Context<ChannelPermissionsContextPayload> {
   public get channel (): Peer {
     return 'channel' in this.payload
       ? this.payload.channel
