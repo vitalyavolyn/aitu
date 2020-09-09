@@ -1,5 +1,4 @@
 import { KeyboardBuilder, FormAction } from '.'
-import { AllowArray } from '../../types'
 
 export interface InlineCommand {
   /** Button caption. Max length - 32, recommended - 20 */
@@ -51,7 +50,7 @@ export class Keyboard {
     return new KeyboardBuilder()
   }
 
-  public static keyboard (rows: AllowArray<ProxyButton[]>): KeyboardBuilder {
+  public static keyboard (rows: (ProxyButton | ProxyButton[])[]): KeyboardBuilder {
     const builder = new KeyboardBuilder()
 
     for (const row of rows) {
