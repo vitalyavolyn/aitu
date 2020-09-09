@@ -80,7 +80,11 @@ export class Keyboard {
     return { options, kind: 'quickButtonCommand' }
   }
 
-  public static replyCommand (options: ReplyCommand): ProxyButton {
+  public static replyCommand (options: ReplyCommand | string): ProxyButton {
+    if (typeof options === 'string') {
+      options = { caption: options }
+    }
+
     return { options, kind: 'replyCommand' }
   }
 }

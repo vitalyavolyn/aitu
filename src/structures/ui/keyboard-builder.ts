@@ -18,6 +18,10 @@ export class KeyboardBuilder {
       throw new RangeError('Maximum length of caption: 32 characters')
     }
 
+    if (this.currentRow.length === 8) {
+      throw new RangeError('Max count of columns is 8')
+    }
+
     this.currentRow.push(options)
     return this
   }
@@ -41,8 +45,12 @@ export class KeyboardBuilder {
     return this
   }
 
-  public replyCommand (options: ReplyCommand): this {
+  public replyCommand (options: ReplyCommand | string): this {
     this.ensureType('reply')
+
+    if (typeof options === 'string') {
+      options = { caption: options }
+    }
 
     if (options.caption.length > 32) {
       throw new RangeError('Maximum length of caption: 32 characters')
@@ -63,10 +71,6 @@ export class KeyboardBuilder {
   public row (): this {
     if (this.currentRow.length === 0 || this.type !== 'inline') {
       return this
-    }
-
-    if (this.currentRow.length > 8) {
-      throw new RangeError('Max count of columns is 8')
     }
 
     if (this.rows.length === 8) {
