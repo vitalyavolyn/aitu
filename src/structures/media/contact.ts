@@ -12,7 +12,8 @@ export interface UnregisteredContactPayload {
   phoneNumber?: string
 }
 
-export interface User extends UnregisteredContactPayload {
+export interface User extends Omit<UnregisteredContactPayload, 'type'> {
+  id: string
   userName: string
   avatar: Avatar
 }

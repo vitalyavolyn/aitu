@@ -17,7 +17,8 @@ export interface InputMedia {
 }
 
 export class FileMedia<
-  P extends BaseFileMedia, Type extends BaseFileMedia['type'] = BaseFileMedia['type']
+  P extends BaseFileMedia = BaseFileMedia,
+  Type extends BaseFileMedia['type'] = BaseFileMedia['type']
 > extends Media<P, Type> {
   public get fileId (): string {
     return this.payload.fileId
