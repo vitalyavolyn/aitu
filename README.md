@@ -66,7 +66,7 @@ aitu.updates.startPolling()
 - [x] InlineCommand keyboard builder
 - [x] ReplyCommand keyboard builde
 - [ ] Check all `// TODO` in code
-- [ ] Write tests
+- [x] Write tests
 - [ ] Write documentation
 - [ ] Add more examples
 - [x] `context.state`
