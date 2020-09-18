@@ -165,6 +165,17 @@ describe('Keyboards', () => {
       expected.pop() // remove empy array at the end
       expect(builder.toJSON()).toMatchObject(expected)
     })
+
+    describe('#clone()', () => {
+      it('returns the same keyboard', () => {
+        const builder = new KeyboardBuilder()
+          .replyCommand('1')
+
+        const clone = builder.clone()
+
+        expect(clone.toJSON()).toMatchObject(builder.toJSON())
+      })
+    })
   })
 
   describe('Keyboard', () => {

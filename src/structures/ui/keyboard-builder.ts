@@ -3,9 +3,9 @@ import { InlineCommand, QuickButtonCommand, ReplyCommand, QuickButtonCommandInpu
 export type KeyboardRow = (InlineCommand | QuickButtonCommand | ReplyCommand)[]
 
 export class KeyboardBuilder {
-  private type: 'inline' | 'quick' | 'reply' | undefined
-  private rows: KeyboardRow[] = []
-  private currentRow: KeyboardRow = []
+  protected type: 'inline' | 'quick' | 'reply' | undefined
+  protected rows: KeyboardRow[] = []
+  protected currentRow: KeyboardRow = []
 
   public get [Symbol.toStringTag] (): string {
     return this.constructor.name
@@ -66,6 +66,16 @@ export class KeyboardBuilder {
     } else {
       this.type = type
     }
+  }
+
+  public clone (): KeyboardBuilder {
+    const builder = new KeyboardBuilder()
+
+    builder.rows = [...this.rows]
+    builder.currentRow = [...this.currentRow]
+    builder.type = this.type
+
+    return builder
   }
 
   public row (): this {
