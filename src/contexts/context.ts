@@ -30,6 +30,10 @@ export class Context<P extends Update = Update> {
     return this.constructor.name
   }
 
+  public get updateId (): string {
+    return this.payload.updateId
+  }
+
   public is (rawTypes: AllowArray<string>): boolean {
     const types = Array.isArray(rawTypes)
       ? rawTypes
