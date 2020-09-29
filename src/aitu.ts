@@ -29,7 +29,7 @@ const debug = createDebug('aitu:api')
 export class Aitu {
   public options: AituOptions
 
-  public updates = new Updates(this)
+  public updates: Updates
 
   /**
    * Call Aitu API
@@ -156,6 +156,8 @@ export class Aitu {
       ...defaultOptions,
       ...options
     }
+
+    this.updates = new Updates(this)
   }
 
   public setOptions (options: Partial<AituOptions>): this {

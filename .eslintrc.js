@@ -38,6 +38,9 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
 
+    '@typescript-eslint/explicit-module-boundary-types': ['warn', {
+      allowArgumentsExplicitlyTypedAsAny: true
+    }],
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/array-type': ['error', { default: 'array' }],
     '@typescript-eslint/no-non-null-assertion': 'off',

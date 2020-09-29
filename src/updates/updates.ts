@@ -1,12 +1,11 @@
+import * as http from 'http'
 import createDebug from 'debug'
-import fetch from 'node-fetch'
-import AbortController from 'abort-controller'
 import { Middleware, compose, noopNext, Composer, MiddlewareReturn } from 'middleware-io'
 import { inspectable } from 'inspectable'
 
-import { Aitu } from './aitu'
-import { UpdateResponse, UpdateType, Constructor, AllowArray } from './types'
-import { Update } from './interfaces'
+import { Aitu } from '../aitu'
+import { UpdateType, Constructor, AllowArray } from '../types'
+import { Update } from '../interfaces'
 import {
   Context,
 
@@ -36,8 +35,8 @@ import {
 
   FormContext,
   FormContextType
-} from './contexts'
-import { ApiError } from './errors'
+} from '../contexts'
+import { PollingTransport, WebhookTransport, WebhookTransportOptions } from '.'
 
 const debug = createDebug('aitu:updates')
 
@@ -94,14 +93,10 @@ function makeContexts (groups: [UpdateType[], Constructor<Context>][]) {
 
 const contexts = makeContexts(rawContexts)
 
-// TODO: support webhooks, move polling to separate class
 export class Updates {
-  private readonly aitu: Aitu
-
-  /** Is polling started? */
-  public isStarted = false
-
-  private retries = 0
+  private aitu: Aitu
+  private pollingTransport: PollingTransport
+  private webhookTransport: WebhookTransport
 
   public composer = Composer.builder<Context>()
     .caught((context, error) => {
@@ -117,6 +112,20 @@ export class Updates {
     // but typescript hates that this.composed
     // is not initialized in the constructor
     this.composed = this.composer.compose()
+
+    this.pollingTransport = new PollingTransport(
+      this.handleUpdate.bind(this),
+      this.aitu.options
+    )
+
+    this.webhookTransport = new WebhookTransport(
+      this.handleUpdate.bind(this),
+      this.aitu.options
+    )
+  }
+
+  public get isStarted (): boolean {
+    return this.pollingTransport.isStarted || this.webhookTransport.isStarted
   }
 
   public use<T = Context> (middleware: Middleware<Context & T>): this {
@@ -197,85 +206,20 @@ export class Updates {
     ))
   }
 
-  public stopPolling (): void {
-    this.isStarted = false
+  public stop (): void {
+    this.pollingTransport.stop()
   }
 
   /** Start updates fetch loop */
   public async startPolling (): Promise<void> {
-    if (this.isStarted) {
-      throw new Error('Polling is already started')
-    }
-
-    this.isStarted = true
-    debug('Start polling')
-
-    try {
-      await this.startFetchLoop()
-    } catch (error) {
-      this.isStarted = false
-
-      throw error
-    }
+    this.pollingTransport.start()
   }
 
-  private async startFetchLoop () {
-    while (this.isStarted) {
-      try {
-        await this.fetchUpdates()
-      } catch (error) {
-        debug('startFetchLoop:', error)
-
-        if (this.retries === this.aitu.options.pollingRetryLimit) {
-          throw error
-        }
-
-        this.retries = this.retries + 1
-      }
-    }
+  public async startWebhook (options: WebhookTransportOptions): Promise<void> {
+    this.webhookTransport.start(options)
   }
 
-  private async fetchUpdates () {
-    const { apiBaseUrl, pollingTimeout, agent, token } = this.aitu.options
-
-    const headers = { 'x-bot-token': token }
-
-    const abortController = new AbortController()
-    const timeout = setTimeout(() => abortController.abort(), pollingTimeout)
-
-    const response = await fetch(`${apiBaseUrl}/updates`, {
-      headers,
-      agent,
-      signal: abortController.signal
-    })
-
-    clearTimeout(timeout)
-
-    const responseJson = await response.text()
-    let updateResponse: UpdateResponse
-    try {
-      updateResponse = JSON.parse(responseJson)
-    } catch (error) {
-      debug('JSON parsing error', responseJson)
-      throw error
-    }
-
-    // debug('updateResponse', updateResponse)
-
-    if (!('updates' in updateResponse)) {
-      const { status, message } = updateResponse
-      throw new ApiError({ status, message })
-    }
-
-    const { updates } = updateResponse
-    this.retries = 0
-
-    if (updates.length === 0) return
-
-    updates.forEach((update) => this.handleUpdate(update))
-  }
-
-  private async handleUpdate (update: Update) {
+  private async handleUpdate (update: Update): Promise<void> {
     debug('update', update)
     const { type } = update
 
@@ -304,6 +248,25 @@ export class Updates {
 
   protected recompose (): void {
     this.composed = this.composer.compose()
+  }
+
+  /**
+   * Returns webhook callback like http[s] or express
+   */
+  public getWebhookCallback (path?: string): (
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    next?: (() => void) | undefined
+  ) => Promise<void> {
+    return this.webhookTransport.getWebhookCallback(path)
+  }
+
+  /**
+   * Returns the middleware for the webhook under koa
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public getKoaWebhookMiddleware (): (context: any) => Promise<void> {
+    return this.webhookTransport.getKoaWebhookMiddleware()
   }
 }
 

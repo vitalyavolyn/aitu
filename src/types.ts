@@ -1,4 +1,4 @@
-import { Update } from './interfaces'
+import { UpdatesPayload } from './interfaces'
 import { ApiErrorParams } from './errors'
 
 export type UpdateType =
@@ -49,7 +49,7 @@ ApiCommand |
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApiResponse = any // ¯\_(ツ)_/¯
 
-export type UpdateResponse = { updates: Update[] } | ApiErrorParams
+export type UpdateResponse = UpdatesPayload | ApiErrorParams
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T = {}> = new (...args: any[]) => T

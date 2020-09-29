@@ -34,7 +34,7 @@ aitu.updates.startPolling()
 
 ## Features left to do before 1.0.0
 
-- [ ] Add webhook transport for updates
+- [x] Add webhook transport for updates
 - [x] Add custom classes for Media
   - [x] Media files
   - [x] Contacts

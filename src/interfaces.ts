@@ -29,6 +29,10 @@ export interface Update {
   type: UpdateType
 }
 
+export interface UpdatesPayload {
+  updates: Update[]
+}
+
 export interface UiState {
   canWriteText?: boolean
   showCameraButton?: boolean
