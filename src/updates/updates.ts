@@ -219,7 +219,7 @@ export class Updates {
     this.webhookTransport.start(options)
   }
 
-  private async handleUpdate (update: Update): Promise<void> {
+  public async handleUpdate (update: Update): Promise<void> {
     debug('update', update)
     const { type } = update
 

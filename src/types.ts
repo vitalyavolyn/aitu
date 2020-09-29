@@ -18,8 +18,7 @@ export type UpdateType =
 'ChannelAdminAdded' |
 'ChannelAdminDeleted' |
 'ChannelPermissionsGranted' |
-'ChannelPermissionsRevoked' |
-'InlineCommandSelected'
+'ChannelPermissionsRevoked'
 
 export type ApiCommand =
 'SendMessage' |
