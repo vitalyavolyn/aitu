@@ -183,12 +183,14 @@ describe('Keyboards', () => {
       it('returns a valid ReplyCommand keyboard', () => {
         const keyboard = Keyboard.keyboard([
           Keyboard.replyCommand('string caption'),
-          Keyboard.replyCommand({ caption: 'obj with caption' })
+          Keyboard.replyCommand({ caption: 'obj with caption' }),
+          'string literal'
         ])
 
         const expected: ReplyCommand[] = [
           { caption: 'string caption' },
-          { caption: 'obj with caption' }
+          { caption: 'obj with caption' },
+          { caption: 'string literal' }
         ]
 
         expect(keyboard.toJSON()).toMatchObject(expected)

@@ -50,13 +50,21 @@ export class Keyboard {
     return new KeyboardBuilder()
   }
 
-  public static keyboard (rows: (ProxyButton | ProxyButton[])[]): KeyboardBuilder {
+  public static keyboard (rows: (ProxyButton | ProxyButton[] | string)[]): KeyboardBuilder {
     const builder = new KeyboardBuilder()
 
     for (const row of rows) {
       const buttons = Array.isArray(row) ? row : [row]
 
-      for (const { kind, options } of buttons) {
+      for (let btn of buttons) {
+        if (typeof btn === 'string') {
+          btn = {
+            kind: 'replyCommand',
+            options: { caption: btn }
+          }
+        }
+
+        const { kind, options } = btn
         // @ts-expect-error
         builder[kind](options)
       }
