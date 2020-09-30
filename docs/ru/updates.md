@@ -37,7 +37,7 @@ updates.startWebhook(options) // => Promise
 Опции (все - необязательные)
 
 |Свойство|Тип|Описание|
-|--|--|--|--|
+|--|--|--|
 |path|string|Путь обработки запроса|
 |port|number|Порт сервера|
 |tls|[TlsOptions](https://nodejs.org/docs/latest/api/https.html#https_https_createserver_options_requestlistener)|TLS - опции для https сервера|
