@@ -48,6 +48,16 @@ export class WebhookTransport {
     }
   }
 
+  public async stop (): Promise<void> {
+    this.isStarted = false
+
+    if (this.webhookServer) {
+      this.webhookServer.close(() => {
+        this.webhookServer = undefined
+      })
+    }
+  }
+
   /**
    * Returns callback for http[s] or express
    */

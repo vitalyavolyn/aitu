@@ -208,6 +208,7 @@ export class Updates {
 
   public stop (): void {
     this.pollingTransport.stop()
+    this.webhookTransport.stop()
   }
 
   /** Start updates fetch loop */
