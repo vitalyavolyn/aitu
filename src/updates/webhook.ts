@@ -10,7 +10,7 @@ import { parseReqJSON } from '../utils'
 const debug = createDebug('aitu:updates')
 
 export interface WebhookTransportOptions {
-  path: string
+  path?: string
   port?: number
   tls?: TlsOptions
 }
