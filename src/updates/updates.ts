@@ -220,7 +220,7 @@ export class Updates {
     this.webhookTransport.start(options)
   }
 
-  public async handleUpdate (update: Update): Promise<void> {
+  public async handleUpdate <T extends Update> (update: T): Promise<void> {
     debug('update', update)
     const { type } = update
 
