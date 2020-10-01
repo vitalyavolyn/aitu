@@ -6,6 +6,9 @@
     "name": "Vitaliy Volynskiy",
     "email": "i@vitalya.me"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
     "prepack": "yarn build",
     "build": "rm -rf lib; tsc",
