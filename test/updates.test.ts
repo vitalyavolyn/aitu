@@ -1,3 +1,5 @@
+import fetch from 'node-fetch'
+
 import { Aitu, Context, MessageContext, session, MessageUpdate } from '../src'
 import { Peer } from '../src/interfaces'
 import { UpdateType } from '../src/types'
@@ -119,6 +121,35 @@ describe('Updates', () => {
       sentAt: '',
       type: 'Message',
       updateId: ''
+    })
+  })
+
+  describe('Webhook transport', () => {
+    const { updates } = new Aitu({ token: '' })
+    const port = process.env.PORT ? Number(process.env.PORT) : 9999
+
+    it('starts the server without errors', async (done) => {
+      await updates.startWebhook({ port })
+      done()
+    })
+
+    it('receives updates', (done) => {
+      updates.on('Message', (_) => done())
+
+      const body = JSON.stringify({ updates: [{ type: 'Message', updateId: '' }] })
+
+      fetch(`http://localhost:${port}`, {
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    })
+
+    it('stops the server without errors', async (done) => {
+      await updates.stop()
+      done()
     })
   })
 })

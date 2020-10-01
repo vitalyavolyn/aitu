@@ -2,6 +2,7 @@ import createDebug from 'debug'
 import * as http from 'http'
 import * as https from 'https'
 import { TlsOptions } from 'tls'
+import { promisify } from 'util'
 
 import { Updates } from '.'
 import { UpdatesPayload, AituOptions, Update } from '../interfaces'
@@ -39,9 +40,11 @@ export class WebhookTransport {
       this.webhookServer = server
 
       const listeningPort = port ?? (tls ? 443 : 80)
-      server.listen(listeningPort, () => {
-        debug(`Server listening on port ${listeningPort}`)
-      })
+
+      await promisify<number>(server.listen)
+        .call(server, listeningPort)
+
+      debug(`Server listening on port ${listeningPort}`)
     } catch (error) {
       this.isStarted = false
       throw error
@@ -52,9 +55,11 @@ export class WebhookTransport {
     this.isStarted = false
 
     if (this.webhookServer) {
-      this.webhookServer.close(() => {
-        this.webhookServer = undefined
-      })
+      const { webhookServer } = this
+
+      await promisify(webhookServer.close).call(webhookServer)
+
+      this.webhookServer = undefined
     }
   }
 
