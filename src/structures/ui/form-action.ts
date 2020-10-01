@@ -42,7 +42,7 @@ interface OpenPeerAction extends FormActionBase {
 interface SendPrivateDataAction extends FormActionBase {
   action: 'send_private_data'
   /** Data type */
-  data_template: 'phone'
+  data_template: string
 }
 
 interface RedirectCallAction extends FormActionBase {
