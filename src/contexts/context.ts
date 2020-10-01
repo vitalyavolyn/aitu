@@ -58,7 +58,7 @@ export class Context<P extends Update = Update> {
 }
 
 inspectable(Context, {
-  serialize: instance => instance.toJSON(),
+  serialize: (instance) => instance.toJSON(),
   stringify: (instance, payload, context): string => (
     `${context.stylize(instance.constructor.name, 'special')} ${context.inspect(payload)}`
   )

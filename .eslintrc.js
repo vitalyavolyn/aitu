@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'max-len': ['error', { code: 100 }],
     'object-shorthand': ['error'],
+    'arrow-parens': ['error', 'always'],
 
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],

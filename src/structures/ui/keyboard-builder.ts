@@ -94,7 +94,7 @@ export class KeyboardBuilder {
 
   public toJSON (): KeyboardRow | KeyboardRow[] {
     return this.type === 'inline'
-      ? [...this.rows, this.currentRow].filter(row => row.length > 0)
+      ? [...this.rows, this.currentRow].filter((row) => row.length > 0)
       : this.currentRow
   }
 }

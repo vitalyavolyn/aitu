@@ -47,11 +47,11 @@ export class FileMedia<
   }
 
   public get downloadStream (): Promise<NodeJS.ReadableStream> {
-    return this.download.then(response => response.body)
+    return this.download.then((response) => response.body)
   }
 
   public get downloadBuffer (): Promise<Buffer> {
-    return this.download.then(response => response.buffer())
+    return this.download.then((response) => response.buffer())
   }
 
   public get isSendable (): boolean {

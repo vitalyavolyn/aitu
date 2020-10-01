@@ -39,8 +39,7 @@ export class Aitu {
    * // same as
    * aitu.api('SendMessage', { content: 'text', recipient: { type: 'USER', id: 'uuid' } })
    */
-  // expect-error is here because proxy target is not an ApiObject, but it doesn't matter anyway
-  // @ts-expect-error
+  // @ts-expect-error: proxy target is not an ApiObject, but it doesn't matter anyway
   public readonly api = new Proxy<ApiObject>(() => {}, {
     // redirect api.method(params) to api(method, params)
     get: (_target, method: ApiMethod) => <T extends ApiMethod>(

@@ -25,7 +25,7 @@ export class NewChannelSubscriberContext extends Context<NewChannelSubscriberCon
   public getChannelInfo (): Promise<ChannelPeer> {
     const channelId = this.channel.id
 
-    return this.aitu.api.getChannelInfo({ channelId }).then(response => response.channel)
+    return this.aitu.api.getChannelInfo({ channelId }).then((response) => response.channel)
   }
 
   /** Send a message to the channel */
