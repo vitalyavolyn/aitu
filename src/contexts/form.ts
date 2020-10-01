@@ -108,6 +108,7 @@ export class FormContext extends Context<FormContextPayload> {
     )
   }
 
+  /** Send a message to the dialog */
   public async send (
     content: string | SendMessageParams,
     params?: Partial<SendMessageParams>
@@ -125,6 +126,7 @@ export class FormContext extends Context<FormContextPayload> {
     return this.aitu.api.SendMessage(options)
   }
 
+  /** Send a form to the dialog without sending a message */
   public async sendForm (formMessage: FormMessage): Promise<{}> {
     return this.aitu.api.SendUiState({
       uiState: { formMessage },
@@ -132,6 +134,7 @@ export class FormContext extends Context<FormContextPayload> {
     })
   }
 
+  /** Send quick buttons to the dialog without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
@@ -141,6 +144,7 @@ export class FormContext extends Context<FormContextPayload> {
     })
   }
 
+  /** Send a container message to the dialog */
   public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
     return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }

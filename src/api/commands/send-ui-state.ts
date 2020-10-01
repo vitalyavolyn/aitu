@@ -6,4 +6,5 @@ export interface SendUiStateParams {
   uiState: UiState
 }
 
+/** Sends UI State information without sending a message */
 export type SendUiState = (params: SendUiStateParams) => Promise<{}>

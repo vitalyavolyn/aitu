@@ -1,8 +1,9 @@
 import { Context } from './context'
 import { Update, Peer, ChannelPeer } from '../interfaces'
-import { ChannelPermission } from '../types'
 import { SendMessageParams } from '../api'
 import { pickProperties } from '../utils'
+
+export type ChannelPermission = 'WRITE' | 'READ_ADMINS' | 'READ_HISTORY'
 
 export interface ChannelPermissionsGrantedUpdate extends Update {
   type: 'ChannelPermissionsGranted'
@@ -32,10 +33,12 @@ export class ChannelPermissionsContext extends Context<ChannelPermissionsContext
     return 'permissions' in this.payload ? this.payload.permissions : []
   }
 
+  /** Does bot have permission x? */
   public hasPermission (permission: ChannelPermission): boolean {
     return this.permissions.includes(permission)
   }
 
+  /** Get information about the channel */
   public getChannelInfo (): Promise<ChannelPeer> {
     const channelId = this.channel.id
 

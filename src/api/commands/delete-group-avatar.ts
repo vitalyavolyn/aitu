@@ -3,4 +3,5 @@ export interface DeleteGroupAvatarParams {
   groupId: string
 }
 
+/** Removes group avatar if bot has permission to do so */
 export type DeleteGroupAvatar = (params: DeleteGroupAvatarParams) => Promise<{}>

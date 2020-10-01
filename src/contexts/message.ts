@@ -62,6 +62,7 @@ export type MessageContextPayload = MessageUpdate | MessageEditedUpdate
 export type MessageContextType = MessageContextPayload['type']
 
 export class MessageContext extends Context<MessageContextPayload> {
+  /** Array of media attachments */
   public media: Media[]
 
   public constructor (options: ContextOptions<MessageContextPayload>) {
@@ -72,27 +73,32 @@ export class MessageContext extends Context<MessageContextPayload> {
       : []
   }
 
+  /** Message ID */
   public get id (): string {
     return this.payload.messageId
   }
 
-  /** Alias for context.content */
+  /** Message text, alias for context.content */
   public get text (): string {
     return this.content
   }
 
+  /** Info about the user (bot) who sent the message */
   public get sender (): Peer {
     return this.payload.author
   }
 
+  /** Info about dialog containing the message */
   public get dialog (): Peer {
     return this.payload.dialog
   }
 
+  /** Info about dialog containing the message, alias of ctx.dialog */
   public get chat (): Peer {
     return this.dialog
   }
 
+  /** Dialog type */
   public get chatType (): PeerType {
     return this.chat.type
   }
@@ -113,6 +119,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     return 'sentAt' in this.payload ? new Date(this.payload.sentAt) : undefined
   }
 
+  /** Message text */
   public get content (): string {
     return this.payload.content
   }
@@ -121,6 +128,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     return this.content.length > 0
   }
 
+  /** Info about original sender if message is forwarded */
   public get forwardMetadata (): MessageForwardMetadata | undefined {
     return 'forwardMetadata' in this.payload ? this.payload.forwardMetadata : undefined
   }
@@ -129,6 +137,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     return this.forwardMetadata !== undefined
   }
 
+  /** Does the message start with '/'? */
   public get isCommand (): boolean {
     return this.text.startsWith('/')
   }
@@ -171,6 +180,14 @@ export class MessageContext extends Context<MessageContextPayload> {
     return this.media.filter((media) => media.type === type)
   }
 
+  /**
+   * Send a message to the dialog
+   *
+   * @example
+   * ctx.send('Message text')
+   * ctx.send('Reply', { replyToMessageId: ctx.id }) // you can use ctx.reply()
+   * ctx.send({ content: 'Parameters as one argument' })
+   */
   public async send (
     content: string | SendMessageParams,
     params?: Partial<SendMessageParams>
@@ -188,6 +205,17 @@ export class MessageContext extends Context<MessageContextPayload> {
     return this.aitu.api.SendMessage(options)
   }
 
+  /**
+   * Reply to the message
+   *
+   * @example
+   * ctx.reply('Message text')
+   * ctx.reply('I have a button!', {
+   *   inlineCommandRows: Keyboard.builder()
+   *     .inlineCommand({ caption: 'Inline btn', metadata: '' })
+   * })
+   * ctx.reply({ content: 'Parameters as one argument' })
+   */
   public async reply (
     content: string | SendMessageParams,
     params?: Partial<SendMessageParams>
@@ -204,6 +232,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     })
   }
 
+  /** Send a form without sending a message */
   public async sendForm (formMessage: FormMessage): Promise<{}> {
     return this.aitu.api.SendUiState({
       uiState: { formMessage },
@@ -211,6 +240,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     })
   }
 
+  /** Send quick buttons without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
@@ -220,6 +250,7 @@ export class MessageContext extends Context<MessageContextPayload> {
     })
   }
 
+  /** Send a container message */
   public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
     return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }

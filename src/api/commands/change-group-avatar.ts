@@ -5,4 +5,5 @@ export interface ChangeGroupAvatarParams {
   fileId: string
 }
 
+/** Changes group avatar if bot has permission to do so */
 export type ChangeGroupAvatar = (params: ChangeGroupAvatarParams) => Promise<{}>

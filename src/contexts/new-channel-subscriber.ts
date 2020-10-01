@@ -22,6 +22,7 @@ export class NewChannelSubscriberContext extends Context<NewChannelSubscriberCon
     return this.payload.peer
   }
 
+  /** Get information about the channel */
   public getChannelInfo (): Promise<ChannelPeer> {
     const channelId = this.channel.id
 

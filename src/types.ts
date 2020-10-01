@@ -56,5 +56,3 @@ export type Constructor<T = {}> = new (...args: any[]) => T
 export type AllowArray<T> = T | T[]
 
 export type PeerType = 'USER' | 'BOT' | 'CHANNEL' | 'GROUP'
-
-export type ChannelPermission = 'WRITE' | 'READ_ADMINS' | 'READ_HISTORY'

@@ -2,6 +2,7 @@ interface FormActionBase {
   /* eslint-disable camelcase */
   action: string
   data_template?: string
+  /** Metadata to be returned */
   hidden_metadata?: string
 }
 

@@ -37,6 +37,7 @@ export class ChannelAdminContext extends Context<ChannelAdminContextPayload> {
     return { type: 'CHANNEL', id: this.payload.channelId }
   }
 
+  /** Get information about the channel */
   public getChannelInfo (): Promise<ChannelPeer> {
     const channelId = this.channel.id
 

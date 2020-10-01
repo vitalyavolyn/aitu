@@ -5,4 +5,5 @@ export interface ChangeGroupTitleParams {
   title: string
 }
 
+/** Changes group title if bot has permission to do so */
 export type ChangeGroupTitle = (params: ChangeGroupTitleParams) => Promise<{}>

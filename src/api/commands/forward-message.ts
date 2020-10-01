@@ -12,4 +12,5 @@ export interface ForwardMessageParams {
   messageId: string
 }
 
+/** Forwards a message from one chat to another */
 export type ForwardMessage = (params: ForwardMessageParams) => Promise<{}>

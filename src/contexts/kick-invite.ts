@@ -75,6 +75,7 @@ export class KickInviteContext extends Context<KickInviteContextPayload> {
     return { id: id!, type: this.chatType }
   }
 
+  /** Get information about the channel */
   public getChannelInfo (): Promise<ChannelPeer> {
     if (!this.isChannel) {
       throw new TypeError(`Chat is a ${this.chatType}, not a CHANNEL`)

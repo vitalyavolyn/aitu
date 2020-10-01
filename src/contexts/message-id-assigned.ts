@@ -16,10 +16,12 @@ export type MessageIdAssignedContextPayload = MessageIdAssignedUpdate
 export type MessageIdAssignedContextType = MessageIdAssignedContextPayload['type']
 
 export class MessageIdAssignedContext extends Context<MessageIdAssignedContextPayload> {
+  /** Message ID */
   public get id (): string {
     return this.payload.id
   }
 
+  /** Message ID defined by the bot */
   public get localId (): string {
     return this.payload.localId
   }
@@ -66,6 +68,7 @@ export class MessageIdAssignedContext extends Context<MessageIdAssignedContextPa
     return this.aitu.api.SendMessage(options)
   }
 
+  /** Send a form to the user without sending a message */
   public async sendForm (formMessage: FormMessage): Promise<{}> {
     return this.aitu.api.SendUiState({
       uiState: { formMessage },
@@ -73,6 +76,7 @@ export class MessageIdAssignedContext extends Context<MessageIdAssignedContextPa
     })
   }
 
+  /** Send quick buttons to the user without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
@@ -82,10 +86,12 @@ export class MessageIdAssignedContext extends Context<MessageIdAssignedContextPa
     })
   }
 
+  /** Send a container message to the user */
   public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
     return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }
 
+  /** Edit the message */
   public async editMessage (
     content: string | EditMessageParams,
     params?: Partial<EditMessageParams>

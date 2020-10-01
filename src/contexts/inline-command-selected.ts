@@ -76,6 +76,7 @@ export class InlineCommandSelectedContext extends Context<InlineCommandSelectedC
     return this.aitu.api.SendMessage(options)
   }
 
+  /** Send a form to the dialog without sending a message */
   public async sendForm (formMessage: FormMessage): Promise<{}> {
     return this.aitu.api.SendUiState({
       uiState: { formMessage },
@@ -83,6 +84,7 @@ export class InlineCommandSelectedContext extends Context<InlineCommandSelectedC
     })
   }
 
+  /** Send quick buttons to the dialog without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
@@ -92,10 +94,12 @@ export class InlineCommandSelectedContext extends Context<InlineCommandSelectedC
     })
   }
 
+  /** Send a container message */
   public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
     return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }
 
+  /** Edit the message that user interacted with */
   public async editMessage (
     content: string | EditMessageParams,
     params?: Partial<EditMessageParams>

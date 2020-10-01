@@ -1,7 +1,7 @@
 import { Peer } from '../../interfaces'
 
 export interface DeleteMessageParams {
-  /** Peer message to delete was sent to */
+  /** Dialog containing the message to delete */
   dialog: Peer
   /** UUID of the message to delete */
   messageId: string

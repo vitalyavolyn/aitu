@@ -66,6 +66,7 @@ export class QuickButtonSelectedContext extends Context<QuickButtonSelectedConte
     return this.aitu.api.SendMessage(options)
   }
 
+  /** Send a form without sending a message */
   public async sendForm (formMessage: FormMessage): Promise<{}> {
     return this.aitu.api.SendUiState({
       uiState: { formMessage },
@@ -73,6 +74,7 @@ export class QuickButtonSelectedContext extends Context<QuickButtonSelectedConte
     })
   }
 
+  /** Send quick buttons without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
@@ -82,6 +84,7 @@ export class QuickButtonSelectedContext extends Context<QuickButtonSelectedConte
     })
   }
 
+  /** Send a container message to the dialog */
   public async sendContainerMessage (content: ContainerMessage): Promise<{}> {
     return this.aitu.api.SendContainerMessage({ content, recipient: this.chat })
   }

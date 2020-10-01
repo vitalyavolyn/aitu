@@ -8,4 +8,5 @@ export interface getChannelInfoResponse {
   channel: ChannelPeer
 }
 
+/** Returns channel information */
 export type getChannelInfo = (params: getChannelInfoParams) => Promise<getChannelInfoResponse>
