@@ -3,18 +3,23 @@
 A module for Aitu.io's service API, heavily inspired by [negezor/vk-io](https://github.com/negezor/vk-io) and [nitreojs/puregram](https://github.com/nitreojs/puregram).
 
 ## Installation
+
 ### Yarn
+
 Recommended
-```
+
+```sh
 yarn add aitu
 ```
 
 ### NPM
-```
+
+```sh
 npm i aitu
 ```
 
 ## Example usage
+
 ```js
 const { Aitu } = require('aitu')
 
