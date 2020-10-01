@@ -1,5 +1,6 @@
 /* eslint camelcase: ["error", { allow: ["bottom_bar"] } ] */
 import { Header, Options, Content, BottomBar } from '.'
+import { PartialBy } from '../../types'
 
 export interface FormObject {
   /** JSON string with form object */
@@ -13,7 +14,7 @@ export interface FormOptions {
   id: string
   content: Content[]
   options?: Options
-  bottom_bar?: BottomBar
+  bottom_bar?: PartialBy<BottomBar, 'type'>
 }
 
 export class Form {
@@ -28,7 +29,7 @@ export class Form {
     this.id = options.id
     this.content = options.content
     this.options = options.options
-    this.bottom_bar = options.bottom_bar
+    this.bottom_bar = options.bottom_bar ? { ...options.bottom_bar, type: 'bottom_bar' } : undefined
   }
 
   public toJSON (): FormObject {
