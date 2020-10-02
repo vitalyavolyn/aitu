@@ -76,7 +76,7 @@ aitu.updates.startPolling()
 - [ ] Add more examples
 - [x] `context.state`
 - [ ] Proper handlers like `hear(conditions, handler)` that supports RegEx, Strings, Functions as conditions
-- [ ] Scenes
+- [x] Scenes
 - [x] Sessions
 - [x] Make classes [inspectable](https://github.com/negezor/inspectable)
 - [x] Consider renaming `Aitu.callApi` to `api`

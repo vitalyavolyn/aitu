@@ -1,13 +1,27 @@
 import { Middleware } from 'middleware-io'
-import { FormContext, MessageContext } from './contexts'
+import {
+  Context,
+  FormContext,
+  InlineCommandSelectedContext,
+  MessageContext,
+  QuickButtonSelectedContext
+} from './contexts'
+
+export interface SessionContext<SessionData = Record<string, unknown>> extends Context {
+  session: SessionData
+}
+
+type SupportedContext =
+MessageContext | FormContext |
+InlineCommandSelectedContext | QuickButtonSelectedContext
 
 /**
  * Returns session manager middleware
  */
-export function session<SessionData extends Record<string, unknown>> (
+export function session<SessionData = Record<string, unknown>> (
   store = new Map<string, { session: SessionData }>(),
-  getSessionKey = (ctx: MessageContext | FormContext) => ctx.sender?.id
-): Middleware<(MessageContext | FormContext) & { session?: SessionData }> {
+  getSessionKey = (ctx: SupportedContext) => ctx.sender?.id
+): Middleware<(SupportedContext) & SessionContext<SessionData>> {
   return async (ctx, next) => {
     const key = getSessionKey(ctx)
     if (!key) return next()
