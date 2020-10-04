@@ -89,10 +89,14 @@ export class Aitu {
         const query = new URLSearchParams()
 
         for (const param in params) {
+          // @ts-expect-error: this errors because some methods require no params
+          // but loop won't run when this is the case anyway
+          const val = params[param].toString()
+
           if (url.includes(`{${param}}`)) {
-            url = url.replace(`{${param}}`, String(params[param]))
+            url = url.replace(`{${param}}`, val)
           } else {
-            query.append(param, String(params[param]))
+            query.append(param, val)
           }
         }
 

@@ -45,9 +45,6 @@ ApiCommand |
 'deleteWebhook' |
 'getAvatar'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ApiResponse = any // ¯\_(ツ)_/¯
-
 export type UpdateResponse = UpdatesPayload | ApiErrorParams
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

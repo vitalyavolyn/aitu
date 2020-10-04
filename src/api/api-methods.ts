@@ -1,4 +1,5 @@
 import * as api from '.'
+import { ApiMethod } from '../types'
 
 export interface ApiMethods {
   SendMessage: api.SendMessage
@@ -23,3 +24,6 @@ export interface ApiMethods {
   deleteWebhook: api.deleteWebhook
   getAvatar: api.getAvatar
 }
+
+export type ApiResponse<M extends ApiMethod> = ReturnType<ApiMethods[M]>
+export type ApiRequestParams<M extends ApiMethod> = Parameters<ApiMethods[M]>[0]

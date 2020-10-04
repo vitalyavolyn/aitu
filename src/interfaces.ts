@@ -1,6 +1,6 @@
 import { Agent } from 'https'
-import { UpdateType, PeerType, ApiResponse, ApiMethod } from './types'
-import { ApiRequestParams, ApiMethods } from './api'
+import { UpdateType, PeerType, ApiMethod } from './types'
+import { ApiRequestParams, ApiMethods, ApiResponse } from './api'
 import { KeyboardBuilder, ReplyCommand, QuickButtonCommand, FormMessage } from './structures'
 
 export interface AituOptions {
@@ -56,5 +56,5 @@ export interface UiState {
 }
 
 export interface ApiObject extends ApiMethods {
-  <T extends ApiMethod>(method: T, params: ApiRequestParams<T>): ApiResponse
+  <T extends ApiMethod>(method: T, params?: ApiRequestParams<T>): ApiResponse<T>
 }
