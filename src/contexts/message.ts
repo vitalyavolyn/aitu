@@ -21,12 +21,18 @@ import {
 } from '../structures'
 import { pickProperties } from '../utils'
 
+export interface UserPeer extends Peer {
+  type: 'USER'
+  firstName: string
+  username: string
+}
+
 export interface MessageUpdate extends Update {
   type: 'Message'
   messageId: string
   sentAt: string
 
-  author: Peer
+  author: UserPeer
   dialog: Peer
 
   content: string
@@ -83,8 +89,13 @@ export class MessageContext extends Context<MessageContextPayload> {
     return this.content
   }
 
+  /** Info about the user (bot) who sent the message, alias for context.author */
+  public get sender (): Peer | UserPeer {
+    return this.payload.author
+  }
+
   /** Info about the user (bot) who sent the message */
-  public get sender (): Peer {
+  public get author (): Peer | UserPeer {
     return this.payload.author
   }
 

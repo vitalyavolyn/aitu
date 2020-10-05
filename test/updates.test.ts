@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
-import { Aitu, Context, MessageContext, session, MessageUpdate } from '../src'
-import { Peer } from '../src/interfaces'
+import { Aitu, Context, MessageContext, session, MessageUpdate, UserPeer } from '../src'
 import { UpdateType } from '../src/types'
 
 const updateTypes: UpdateType[] = [
@@ -80,8 +79,8 @@ describe('Updates', () => {
       done()
     })
 
-    const user1: Peer = { type: 'USER', id: '1' }
-    const user2: Peer = { type: 'USER', id: '2' }
+    const user1: UserPeer = { type: 'USER', id: '1', firstName: '', username: '' }
+    const user2: UserPeer = { type: 'USER', id: '2', firstName: '', username: '' }
 
     await updates.handleUpdate<MessageUpdate>({
       author: user1,
