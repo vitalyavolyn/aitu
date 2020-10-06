@@ -1,6 +1,6 @@
 import { Context, ContextOptions } from './context'
 import { SendMessageParams } from '../api'
-import { Peer, Update } from '../interfaces'
+import { Peer, UiState, Update } from '../interfaces'
 import { PeerType } from '../types'
 import {
   Media,
@@ -243,22 +243,24 @@ export class MessageContext extends Context<MessageContextPayload> {
     })
   }
 
-  /** Send a form without sending a message */
-  public async sendForm (formMessage: FormMessage): Promise<{}> {
+  /** Send UiState to the user */
+  public async sendUiState (uiState: UiState): Promise<{}> {
     return this.aitu.api.SendUiState({
-      uiState: { formMessage },
+      uiState,
       recipient: this.chat
     })
+  }
+
+  /** Send a form without sending a message */
+  public async sendForm (formMessage: FormMessage): Promise<{}> {
+    return this.sendUiState({ formMessage })
   }
 
   /** Send quick buttons without sending a message */
   public async sendQuickButtons (
     quickButtonCommands: QuickButtonCommand[] | KeyboardBuilder
   ): Promise<{}> {
-    return this.aitu.api.SendUiState({
-      uiState: { quickButtonCommands },
-      recipient: this.chat
-    })
+    return this.sendUiState({ quickButtonCommands })
   }
 
   /** Send a container message */
