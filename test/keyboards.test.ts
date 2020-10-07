@@ -239,49 +239,25 @@ describe('Keyboards', () => {
       it('returns a valid InlineCommand keyboard', () => {
         const keyboard = Keyboard.keyboard([
           [
-            Keyboard.inlineCommand({
-              caption: '',
-              metadata: ''
-            }),
-            Keyboard.inlineCommand({
-              caption: '',
-              metadata: ''
-            })
+            Keyboard.inlineCommand({ caption: '', metadata: '' }),
+            Keyboard.inlineCommand({ caption: '', metadata: '' })
           ],
           [
-            Keyboard.inlineCommand({
-              caption: '',
-              metadata: ''
-            })
+            Keyboard.inlineCommand({ caption: '', metadata: '' })
           ],
-          Keyboard.inlineCommand({
-            caption: '',
-            metadata: ''
-          })
+          Keyboard.inlineCommand({ caption: '', metadata: '' })
         ])
 
         const expected: InlineCommand[][] = [
           [
-            {
-              caption: '',
-              metadata: ''
-            },
-            {
-              caption: '',
-              metadata: ''
-            }
+            { caption: '', metadata: '' },
+            { caption: '', metadata: '' }
           ],
           [
-            {
-              caption: '',
-              metadata: ''
-            }
+            { caption: '', metadata: '' }
           ],
           [
-            {
-              caption: '',
-              metadata: ''
-            }
+            { caption: '', metadata: '' }
           ]
         ]
 
