@@ -58,7 +58,9 @@ updates.stop() // => Promise
 
 Возвращает callback, совместимый с `express` и стандартным `http[s].createServer()`
 
-updates.getWebhookCallback(path); // Function
+```js
+updates.getWebhookCallback(path) // => Function
+```
 
 |Параметр|Тип|Описание|По умолчанию|
 |--|--|--|--|

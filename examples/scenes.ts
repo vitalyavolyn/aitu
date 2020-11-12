@@ -1,15 +1,16 @@
-const { Aitu, session, Stage, StepScene } = require('..')
+import { Aitu, MessageContext, SceneExtended, session, Stage, StepScene } from '../src'
 
-const aitu = new Aitu({ token: process.env.TOKEN })
+const aitu = new Aitu({ token: process.env.TOKEN! })
 
 const stage = new Stage()
 
+// required for stage middleware
 aitu.updates.use(session())
 
 // this middleware adds context.scene
 aitu.updates.use(stage.middleware)
 
-// this middleware enters scenes
+// this middleware rejoins and executes scenes
 aitu.updates.use(stage.sceneMiddleware)
 
 /*
@@ -35,7 +36,7 @@ aitu.updates.use(stage.sceneMiddleware)
 
 */
 
-aitu.updates.on('Message', (ctx) => {
+aitu.updates.on('Message', (ctx: SceneExtended<MessageContext>) => {
   if (ctx.text === '/signup') {
     return ctx.scene.enter('signup')
   }

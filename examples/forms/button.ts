@@ -21,7 +21,11 @@ aitu.updates.on('Message', (ctx) => {
   ctx.sendForm(new Form({
     id: 'form1',
     content: buttonExample,
-    header: { title: 'Header', type: 'title', options: { closeable: true } }
+    header: {
+      title: 'Header',
+      type: 'title',
+      options: { closeable: true }
+    }
   }))
 })
 

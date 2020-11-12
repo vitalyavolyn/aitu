@@ -80,10 +80,6 @@ export class Keyboard {
   }
 
   public static quickButtonCommand (options: QuickButtonCommandInput): ProxyButton {
-    if (typeof options.metadata !== 'string') {
-      options.metadata = JSON.stringify(options.metadata)
-    }
-
     return { options, kind: 'quickButtonCommand' }
   }
 
