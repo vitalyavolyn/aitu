@@ -38,3 +38,5 @@ aitu.updates.on('Message', async context => {
 
 aitu.updates.startPolling()
 ```
+
+[More examples](https://github.com/vitalyavolyn/aitu/blob/master/examples)
