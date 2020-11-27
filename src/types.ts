@@ -43,7 +43,8 @@ ApiCommand |
 'getWebhookInfo' |
 'setWebhook' |
 'deleteWebhook' |
-'getAvatar'
+'getAvatar' |
+'uploadFiles'
 
 export type UpdateResponse = UpdatesPayload | ApiErrorParams
 

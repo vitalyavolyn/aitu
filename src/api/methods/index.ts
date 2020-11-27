@@ -9,3 +9,5 @@ export * from './set-webhook'
 export * from './delete-webhook'
 
 export * from './get-avatar'
+
+export * from './upload-files'

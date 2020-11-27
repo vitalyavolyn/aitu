@@ -23,6 +23,8 @@ export interface ApiMethods {
   setWebhook: api.setWebhook
   deleteWebhook: api.deleteWebhook
   getAvatar: api.getAvatar
+
+  uploadFiles: api.uploadFiles
 }
 
 export type ApiResponse<M extends ApiMethod> = ReturnType<ApiMethods[M]>

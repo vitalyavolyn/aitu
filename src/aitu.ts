@@ -3,11 +3,13 @@ import AbortController from 'abort-controller'
 import createDebug from 'debug'
 import fetch, { Response } from 'node-fetch'
 import { inspectable } from 'inspectable'
+import FormData from 'form-data'
 
 import { AituOptions, ApiObject } from './interfaces'
 import { Updates } from './updates'
+import { Upload, UploadFilesInput } from './upload'
 import { ApiMethod } from './types'
-import { ApiRequestParams } from './api'
+import { ApiRequestParams, uploadFilesResponse } from './api'
 import { ApiError } from './errors'
 
 // @ts-ignore: ts doesn't like json files outside of rootDir
@@ -31,6 +33,9 @@ export class Aitu {
 
   public updates: Updates
 
+  // Use aitu.uploadFiles
+  private upload: Upload
+
   /**
    * Call Aitu API
    *
@@ -50,14 +55,18 @@ export class Aitu {
 
     // this function is executed when aitu.api() is called
     apply: async <T extends ApiMethod>(
-      _target: ApiObject, _this: Aitu, [method, params]: [T, ApiRequestParams<T>]
+      _target: ApiObject, _this: Aitu, [method, params]: [T, ApiRequestParams<T> | FormData]
     ) => {
       const { apiBaseUrl, apiHeaders, apiTimeout, agent, token } = this.options
 
-      const headers = {
+      const headers: Record<string, string> = {
         ...apiHeaders,
         'x-bot-token': token,
         'content-type': 'application/json'
+      }
+
+      if (params instanceof FormData) {
+        Object.assign(headers, params.getHeaders())
       }
 
       const methodUrls: Record<string, string> = {
@@ -68,12 +77,14 @@ export class Aitu {
         getWebhookInfo: '/webhook',
         setWebhook: '/webhook',
         deleteWebhook: '/webhook',
-        getAvatar: '/user/{userId}/avatar/'
+        getAvatar: '/user/{userId}/avatar/',
+        uploadFiles: '/upload'
       }
 
       const methodTypes: Record<string, string> = {
         setWebhook: 'POST',
-        deleteWebhook: 'DELETE'
+        deleteWebhook: 'DELETE',
+        uploadFiles: 'POST'
       }
 
       // TODO: maybe have an array of commands?
@@ -86,6 +97,10 @@ export class Aitu {
       let url = apiBaseUrl + (methodUrls[method] ?? '/updates')
 
       if (httpMethod === 'GET') {
+        if (params instanceof FormData) {
+          throw new TypeError('params can\'t be FormData when not uploading')
+        }
+
         const query = new URLSearchParams()
 
         for (const param in params) {
@@ -108,16 +123,18 @@ export class Aitu {
         throw new TypeError(`Required parameter "${emptyRequiredParams[1]}" is not present`)
       }
 
-      const body = isCommand
-        ? JSON.stringify({
+      let body
+
+      if (isCommand) {
+        body = JSON.stringify({
           commands: [{
             type: method,
             ...(params ?? {})
           }]
         })
-        : (httpMethod === 'POST'
-          ? JSON.stringify(params)
-          : undefined)
+      } else if (httpMethod === 'POST') {
+        body = params instanceof FormData ? params : JSON.stringify(params)
+      }
 
       debug(`[${method}] --> ${httpMethod} ${url}`)
       if (body) debug(`[${method}] Params: ${body}`)
@@ -149,6 +166,8 @@ export class Aitu {
 
       if (!json.error) return json
 
+      // TODO: sometimes message and status are in json
+      // or every time?
       const { status, message } = json.error
       throw new ApiError({ status, message })
     }
@@ -161,12 +180,18 @@ export class Aitu {
     }
 
     this.updates = new Updates(this)
+    this.upload = new Upload(this)
   }
 
   public setOptions (options: Partial<AituOptions>): this {
     Object.assign(this.options, options)
 
     return this
+  }
+
+  /** Upload files */
+  public uploadFiles (files: UploadFilesInput): Promise<uploadFilesResponse> {
+    return this.upload.uploadFiles(files)
   }
 }
 

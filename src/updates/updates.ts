@@ -94,7 +94,6 @@ function makeContexts (groups: [UpdateType[], Constructor<Context>][]) {
 const contexts = makeContexts(rawContexts)
 
 export class Updates {
-  private aitu: Aitu
   private pollingTransport: PollingTransport
   private webhookTransport: WebhookTransport
 
@@ -105,9 +104,7 @@ export class Updates {
 
   private composed: Middleware<Context>
 
-  public constructor (aitu: Aitu) {
-    this.aitu = aitu
-
+  public constructor (private aitu: Aitu) {
     // it could've been just a this.recompose(),
     // but typescript hates that this.composed
     // is not initialized in the constructor
