@@ -14,7 +14,7 @@
     "build": "rm -rf lib; tsc",
     "test": "yarn run test:eslint && yarn run test:jest",
     "test:jest": "jest",
-    "test:eslint": "eslint 'src/**/*.ts' 'test/*.ts'",
+    "test:eslint": "eslint 'src/**/*.ts' 'test/*.ts' 'examples/**/*.ts'",
     "prepublishOnly": "yarn test"
   },
   "keywords": [
