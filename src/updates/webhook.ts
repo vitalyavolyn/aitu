@@ -41,10 +41,12 @@ export class WebhookTransport {
 
       const listeningPort = port ?? (tls ? 443 : 80)
 
-      await promisify<number>(server.listen)
-        .call(server, listeningPort)
-
-      debug(`Server listening on port ${listeningPort}`)
+      return new Promise((resolve) => {
+        server.listen(listeningPort, () => {
+          debug(`Server listening on port ${listeningPort}`)
+          resolve()
+        })
+      })
     } catch (error) {
       this.isStarted = false
       throw error
